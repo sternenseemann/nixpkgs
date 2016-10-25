@@ -7,8 +7,8 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url = "https://github.com/downloads/metabrainz/libmusicbrainz/${name}.tar.gz";
-    md5 = "a0406b94c341c2b52ec0fe98f57cadf3";
-  };
+    sha256 = "1mc2vfsnyky49s25yc64zijjmk4a8qgknqw21l5n58sra0f5x9qw";
+};
 
   dontUseCmakeBuildDir=true;
 
