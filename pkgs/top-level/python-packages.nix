@@ -925,6 +925,8 @@ in {
 
   pprintpp = callPackage ../development/python-modules/pprintpp { };
 
+  pressagio = callPackage ../development/python-modules/pressagio { };
+
   progress = callPackage ../development/python-modules/progress { };
 
   proglog = callPackage ../development/python-modules/proglog { };
