@@ -3,15 +3,17 @@
 { owner, repo, rev, name ? "source"
 , fetchSubmodules ? false, private ? false
 , githubBase ? "github.com", varPrefix ? null
+, releaseAsset ? null
 , ... # For hash agility
-}@args: assert private -> !fetchSubmodules;
+}@args: assert private -> !fetchSubmodules; assert fetchSubmodules -> releaseAsset == null;
 let
   baseUrl = "https://${githubBase}/${owner}/${repo}";
-  passthruAttrs = removeAttrs args [ "owner" "repo" "rev" "fetchSubmodules" "private" "githubBase" "varPrefix" ];
+  passthruAttrs = removeAttrs args [ "owner" "repo" "rev" "fetchSubmodules" "private" "githubBase" "varPrefix" "releaseAsset" ];
   varBase = "NIX${if varPrefix == null then "" else "_${varPrefix}"}_GITHUB_PRIVATE_";
   # We prefer fetchzip in cases we don't need submodules as the hash
   # is more stable in that case.
   fetcher = if fetchSubmodules then fetchgit else fetchzip;
+  archiveUrl = if releaseAsset == null then "${baseUrl}/archive/${rev}.tar.gz" else "${baseUrl}/releases/download/${rev}/${releaseAsset}";
   privateAttrs = lib.optionalAttrs private {
     netrcPhase = ''
       if [ -z "''$${varBase}USERNAME" -o -z "''$${varBase}PASSWORD" ]; then
@@ -28,6 +30,6 @@ let
   };
   fetcherArgs = (if fetchSubmodules
     then { inherit rev fetchSubmodules; url = "${baseUrl}.git"; }
-    else ({ url = "${baseUrl}/archive/${rev}.tar.gz"; } // privateAttrs)
+    else ({ url = archiveUrl; } // privateAttrs)
   ) // passthruAttrs // { inherit name; };
 in fetcher fetcherArgs // { meta.homepage = baseUrl; inherit rev; }
