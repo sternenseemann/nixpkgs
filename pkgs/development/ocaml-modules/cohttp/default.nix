@@ -5,11 +5,11 @@
 
 buildDunePackage rec {
 	pname = "cohttp";
-	version = "2.5.1";
+	version = "2.5.3";
 
 	src = fetchurl {
 		url = "https://github.com/mirage/ocaml-cohttp/releases/download/v${version}/cohttp-v${version}.tbz";
-		sha256 = "0im91mi3nxzqfd7fs5r0zg5gsparfnf5zaz13mpw247hkd3y3396";
+		sha256 = "0913804c7ialaqljj0m2x2cmys2r3k771rrwjklghbmmxrh7z4i1";
 	};
 
 	buildInputs = [ jsonm ppx_fields_conv ppx_sexp_conv ];
