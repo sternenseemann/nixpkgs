@@ -23181,6 +23181,8 @@ in
     inherit (lua52Packages) lpeg;
   };
 
+  virtboard = callPackage ../applications/misc/virtboard { };
+
   virt-viewer = callPackage ../applications/virtualization/virt-viewer { };
 
   virt-top = callPackage ../applications/virtualization/virt-top { };
