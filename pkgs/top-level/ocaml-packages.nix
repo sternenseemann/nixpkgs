@@ -774,6 +774,8 @@ let
 
     ppxlib = callPackage ../development/ocaml-modules/ppxlib { };
 
+    ppxlib_0_15 = callPackage ../development/ocaml-modules/ppxlib/0.15.nix { };
+
     psmt2-frontend = callPackage ../development/ocaml-modules/psmt2-frontend { };
 
     psq = callPackage ../development/ocaml-modules/psq { };
