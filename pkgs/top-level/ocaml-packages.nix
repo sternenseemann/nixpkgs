@@ -852,9 +852,9 @@ let
     ppx_derivers = callPackage ../development/ocaml-modules/ppx_derivers {};
 
     ppx_deriving =
-      if lib.versionAtLeast ocaml.version "4.02"
-      then callPackage ../development/ocaml-modules/ppx_deriving {}
-      else null;
+      if lib.versionAtLeast ocaml.version "4.05"
+      then callPackage ../development/ocaml-modules/ppx_deriving { ppxlib = ppxlib_0_15; }
+      else callPackage ../development/ocaml-modules/ppx_deriving/legacy.nix {};
 
     ppx_deriving_protobuf = callPackage ../development/ocaml-modules/ppx_deriving_protobuf {};
 
