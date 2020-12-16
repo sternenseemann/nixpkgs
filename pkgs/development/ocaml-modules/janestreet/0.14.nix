@@ -1,4 +1,5 @@
 { janePackage
+, alcotest
 , angstrom
 , angstrom-async
 , base64
@@ -19,6 +20,7 @@
 , uri-sexp
 , zarith
 , openssl
+, ounit
 , zstd
 }:
 
@@ -61,6 +63,7 @@ rec {
     hash = "086v93div4h9l02n7wzv3xx3i6xvddazydm9qlfa72ad55x3vzy0";
     meta.description = "Monadic concurrency library";
     propagatedBuildInputs = [ async_rpc_kernel async_unix textutils ];
+    doCheck = false; # we don't have netkit_sockets
   };
 
   async_extra = janePackage {
@@ -155,6 +158,7 @@ rec {
     meta.description = "Full standard library replacement for OCaml";
     buildInputs = [ dune-configurator ];
     propagatedBuildInputs = [ sexplib0 ];
+    checkInputs = [ alcotest ];
   };
 
   base_bigstring = janePackage {
@@ -198,6 +202,7 @@ rec {
     hash = "0ms1j2kh7i5slyw9v4w9kdz52dkwl5gqcnvn89prgimhk2vmichj";
     meta.description = "Trivial metaprogramming tool";
     propagatedBuildInputs = [ re ];
+    checkInputs = [ ppx_jane ];
   };
 
   core = janePackage {
@@ -206,6 +211,7 @@ rec {
     meta.description = "System-independent part of Core";
     buildInputs = [ jst-config ];
     propagatedBuildInputs = [ core_kernel spawn timezone ];
+    doCheck = false; # we don't have quickcheck_deprecated
   };
 
   core_bench = janePackage {
@@ -228,6 +234,7 @@ rec {
     meta.description = "System-independent part of Core";
     buildInputs = [ jst-config ];
     propagatedBuildInputs = [ base_bigstring sexplib ];
+    doCheck = false; # we don't have quickcheck_deprecated
   };
 
   csvfields = janePackage {
@@ -393,6 +400,7 @@ rec {
     hash = "1qryjxhyz3kn5jz5wm62j59lhjhd1mp7nbsj0np9qnbpapnnr1zg";
     meta.description = "Generation of bin_prot readers and writers from types";
     propagatedBuildInputs = [ bin_prot ppx_here ];
+    doCheck = false; # circular dependency with ppx_jane
   };
 
   ppx_cold = janePackage {
@@ -407,6 +415,7 @@ rec {
     hash = "11pj76dimx2f7l8m85myzp6yzx9xcg0bqi97s7ayssvkckm57390";
     meta.description = "Generation of comparison functions from types";
     propagatedBuildInputs = [ ppxlib ];
+    doCheck = false; # test build rule broken
   };
 
   ppx_custom_printf = janePackage {
@@ -428,6 +437,7 @@ rec {
     hash = "05v6jzn1nbmwk3vzxxnb3380wzg2nb28jpb3v5m5c4ikn0jrhcwn";
     meta.description = "Cram like framework for OCaml";
     propagatedBuildInputs = [ ppx_here ppx_inline_test re ];
+    doCheck = false; # circular dependency with ppx_jane
   };
 
   ppx_fields_conv = janePackage {
@@ -457,6 +467,7 @@ rec {
     hash = "09zcyigaalqccs9s0h7n0535clgfmqb9s4p1jbgcqji9zj8w426s";
     meta.description = "Expands [%here] into its location";
     propagatedBuildInputs = [ ppxlib ];
+    doCheck = false; # test build rules broken
   };
 
   ppx_inline_test = janePackage {
@@ -465,6 +476,7 @@ rec {
     hash = "1ajdna1m9l1l3nfigyy33zkfa3yarfr6s086jdw2pcfwlq1fhhl4";
     meta.description = "Syntax extension for writing in-line tests in ocaml code";
     propagatedBuildInputs = [ ppxlib time_now ];
+    doCheck = false; # test build rules broken
   };
 
   ppx_jane = janePackage {
@@ -673,6 +685,7 @@ rec {
     meta.description = "Yet another implementation of fork&exec and related functionality";
     buildInputs = [ jst-config ];
     propagatedBuildInputs = [ textutils ];
+    checkInputs = [ ounit ];
   };
 
   shexp = janePackage {
@@ -688,6 +701,7 @@ rec {
     hash = "1w003k1kw1lmyiqlk58gkxx8rac7dchiqlz6ah7aj7bh49b36ppf";
     meta.description = "Spawning sub-processes";
     buildInputs = [ ppx_expect ];
+    doCheck = false; # tests are broken on NixOS (absolute paths)
   };
 
   splay_tree = janePackage {
@@ -773,6 +787,7 @@ rec {
     pname = "zarith_stubs_js";
     hash = "16p4bn5spkrx31fr4np945v9mwdq55706v3wl19s5fy6x83gvb86";
     meta.description = "Javascripts stubs for the Zarith library";
+    doCheck = false; # requires workspace with zarith
   };
 
   zstandard = janePackage {
