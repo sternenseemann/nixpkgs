@@ -291,7 +291,7 @@ rec {
     version = "0.14.1";
     hash = "05jvxgqsx3j2v8rqpd91ah76dgc1q2dz38kjklmx0vms4r4gvlsx";
     meta.description = "A library with an encoding of higher kinded types in OCaml";
-    propagatedBuildInputs = [ base ppx_jane ];
+    propagatedBuildInputs = [ base ];
   };
 
   incr_dom = janePackage {
