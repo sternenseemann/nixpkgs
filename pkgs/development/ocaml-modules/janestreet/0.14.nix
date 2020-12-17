@@ -804,7 +804,7 @@ rec {
     pname = "topological_sort";
     hash = "17iz7956zln31p0xnm3jlhj863zi84bcx41jylzf7gk23qsm95m8";
     meta.description = "Topological sort algorithm";
-    propagatedBuildInputs = [ ppx_jane ];
+    propagatedBuildInputs = [ ppx_jane stdio ];
   };
 
   typerep = janePackage {
