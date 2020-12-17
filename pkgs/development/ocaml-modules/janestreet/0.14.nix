@@ -613,7 +613,7 @@ rec {
     minimumOCamlVersion = "4.04.2";
     hash = "0a8khmg0y32kyn3q6idwgh0d6d1s6ms1w75gj3dzng0v7y4h6jx4";
     meta.description = "Ppx extension for string interpolation";
-    propagatedBuildInputs = [ ppx_base ppxlib ];
+    propagatedBuildInputs = [ ppx_base ppxlib stdio ];
   };
 
   ppx_typerep_conv = janePackage {
