@@ -540,7 +540,7 @@ rec {
     version = "0.14.1";
     hash = "04bx5id99clrgvkg122nx03zig1m7igg75piphhyx04w33shgkz2";
     meta.description = "[@@deriving] plugin to generate S-expression conversion functions";
-    propagatedBuildInputs = [ ppxlib ];
+    propagatedBuildInputs = [ ppxlib sexplib0 base ];
   };
 
   ppx_sexp_message = janePackage {
