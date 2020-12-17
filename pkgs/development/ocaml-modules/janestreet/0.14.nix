@@ -334,7 +334,7 @@ rec {
     pname = "jst-config";
     hash = "0hzw0crgj0kjxsvr10wng7gqy948v98hnijh30lgq3v62jdsjra8";
     meta.description = "Compile-time configuration for Jane Street libraries";
-    buildInputs = [ dune-configurator ppx_assert ];
+    buildInputs = [ dune-configurator ppx_assert stdio ];
   };
 
   ocaml-compiler-libs = janePackage {
