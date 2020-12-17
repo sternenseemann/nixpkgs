@@ -414,7 +414,7 @@ rec {
     pname = "ppx_compare";
     hash = "11pj76dimx2f7l8m85myzp6yzx9xcg0bqi97s7ayssvkckm57390";
     meta.description = "Generation of comparison functions from types";
-    propagatedBuildInputs = [ ppxlib ];
+    propagatedBuildInputs = [ ppxlib base ];
     doCheck = false; # test build rule broken
   };
 
