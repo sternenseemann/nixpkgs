@@ -302,7 +302,7 @@ rec {
     minimumOCamlVersion = "4.09";
     hash = "05jvxgqsx3j2v8rqpd91ah76dgc1q2dz38kjklmx0vms4r4gvlsx";
     meta.description = "A library with an encoding of higher kinded types in OCaml";
-    propagatedBuildInputs = [ base ];
+    propagatedBuildInputs = [ base ppx_jane ];
   };
 
   incr_dom = janePackage {
