@@ -923,7 +923,9 @@ let
 
     ppx_deriving =
       if lib.versionAtLeast ocaml.version "4.02"
-      then callPackage ../development/ocaml-modules/ppx_deriving {}
+      then callPackage ../development/ocaml-modules/ppx_deriving {
+        ppxlib = ppxlib.override { version = "0.20.0"; };
+      }
       else null;
 
     ppx_deriving_protobuf = callPackage ../development/ocaml-modules/ppx_deriving_protobuf {};
