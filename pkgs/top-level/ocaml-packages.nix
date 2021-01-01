@@ -914,7 +914,9 @@ let
 
     ppx_blob =
       if lib.versionAtLeast ocaml.version "4.02"
-      then callPackage ../development/ocaml-modules/ppx_blob {}
+      then callPackage ../development/ocaml-modules/ppx_blob {
+        ppxlib = ppxlib.override { version = "0.20.0"; };
+      }
       else null;
 
     ppx_cstruct = callPackage ../development/ocaml-modules/cstruct/ppx.nix {};
