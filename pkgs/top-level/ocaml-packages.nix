@@ -74,6 +74,14 @@ let
 
     ca-certs = callPackage ../development/ocaml-modules/ca-certs { };
 
+    carton = callPackage ../development/ocaml-modules/carton { };
+
+    carton-git = callPackage ../development/ocaml-modules/carton/git.nix { };
+
+    carton-lwt = callPackage ../development/ocaml-modules/carton/lwt.nix {
+      non-ocaml-git = pkgs.git;
+    };
+
     camlidl = callPackage ../development/tools/ocaml/camlidl { };
 
     camlp4 =
