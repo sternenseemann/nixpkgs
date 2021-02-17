@@ -1,7 +1,6 @@
 { lib
 , fetchgit
 , buildDunePackage
-, dune-configurator
 }:
 
 buildDunePackage rec {
@@ -16,5 +15,4 @@ buildDunePackage rec {
     rev = "355de5cba805b2d79e51a2636c2056e72f3f1136";
   };
 
-  buildInputs = [ dune-configurator ];
 }
