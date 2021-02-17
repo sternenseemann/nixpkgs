@@ -10,7 +10,7 @@ buildDunePackage rec {
 
   useDune2 = true;
 
-	src = fetchurl {
+  src = fetchurl {
     url = "https://github.com/djs55/ocaml-${pname}/releases/download/v${version}/${pname}-v${version}.tbz";
     sha256 = "00z2s4fsv9i1h09rj5dy3nd9hhcn79b75sn2ljj5wihlf4y4g304";
   };
