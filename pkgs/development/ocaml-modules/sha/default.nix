@@ -15,4 +15,11 @@ buildDunePackage rec {
     rev = "355de5cba805b2d79e51a2636c2056e72f3f1136";
   };
 
+  meta = with lib; {
+    description = "Binding for SHA interface code in OCaml";
+    maintainers = [ arthurteisseire ];
+    homepage = "https://github.com/djs55/ocaml-${pname}";
+    license = licenses.isc;
+  };
+
 }
