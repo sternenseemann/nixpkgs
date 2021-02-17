@@ -15,8 +15,6 @@ buildDunePackage rec {
     sha256 = "00z2s4fsv9i1h09rj5dy3nd9hhcn79b75sn2ljj5wihlf4y4g304";
   };
 
-  patches = [ ./Makefile.patch ];
-
   doCheck = true;
   checkInputs = [ ounit ];
 
