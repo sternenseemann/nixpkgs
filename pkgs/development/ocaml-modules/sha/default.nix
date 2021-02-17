@@ -21,7 +21,7 @@ buildDunePackage rec {
 
   meta = with lib; {
     description = "Binding for SHA interface code in OCaml";
-    maintainers = [ arthurteisseire ];
+    maintainers = [ maintainers.arthurteisseire ];
     homepage = "https://github.com/djs55/ocaml-${pname}";
     license = licenses.isc;
   };
