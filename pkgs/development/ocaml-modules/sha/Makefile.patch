@@ -1,0 +1,23 @@
+From 603ae87e98c9bde152e3d594f82abf62d60853f5 Mon Sep 17 00:00:00 2001
+From: Arthur Teisseire <arthurteisseire33@gmail.com>
+Date: Wed, 17 Feb 2021 15:28:52 +0100
+Subject: [PATCH] Remove --dev from Makefile
+
+---
+ Makefile | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/Makefile b/Makefile
+index 3db2c65..a0486bb 100644
+--- a/Makefile
++++ b/Makefile
+@@ -1,5 +1,5 @@
+ all:
+-	dune build --dev @install
++	dune build @install
+ 
+ test:
+ 	dune runtest
+-- 
+2.29.2
+

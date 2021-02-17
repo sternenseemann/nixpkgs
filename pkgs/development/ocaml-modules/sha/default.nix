@@ -1,5 +1,5 @@
 { lib
-, fetchgit
+, fetchurl
 , buildDunePackage
 , ounit
 }:
@@ -10,11 +10,12 @@ buildDunePackage rec {
 
   useDune2 = true;
 
-  src = fetchgit {
-    url = "https://github.com/arthurteisseire/ocaml-${pname}.git";
-    sha256 = "1nfirappw3kspf45vp6f78lg36ksk30d7b2c7ymzqw71hybazs26";
-    rev = "355de5cba805b2d79e51a2636c2056e72f3f1136";
+	src = fetchurl {
+    url = "https://github.com/djs55/ocaml-${pname}/releases/download/v${version}/${pname}-v${version}.tbz";
+    sha256 = "00z2s4fsv9i1h09rj5dy3nd9hhcn79b75sn2ljj5wihlf4y4g304";
   };
+
+  patches = [ ./Makefile.patch ];
 
   doCheck = true;
   checkInputs = [ ounit ];
