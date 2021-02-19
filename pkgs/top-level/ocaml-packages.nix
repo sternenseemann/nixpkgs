@@ -3,8 +3,15 @@
 let
   liftJaneStreet = self: super: super.janeStreet // super;
 
-  mkOcamlPackages = ocaml:
-    (lib.makeScope newScope (self: with self;
+  janeStreetWarning = set: set // {
+    janeStreet = lib.dontRecurseIntoAttrs
+      (builtins.trace
+        "ocamlPackages.janeStreet.* is deprecated and overriding within it will not work as expected. Use the ocamlPackages.*"
+        set.janeStreet);
+  };
+
+  mkOcamlPackages = ocaml: janeStreetWarning
+    ((lib.makeScope newScope (self: with self;
   {
     inherit ocaml;
 
@@ -1210,7 +1217,7 @@ let
       };
       inherit (pkgs) openssl;
     }
-    else import ../development/ocaml-modules/janestreet {
+    else import ../development/ocaml-modules/janestreet/0.11.nix {
       self = self // {
         ppxlib = ppxlib.override { version = "0.8.1"; };
       };
@@ -1218,7 +1225,7 @@ let
       inherit (pkgs) openssl lib;
     };
 
-    janeStreet_0_9_0 = import ../development/ocaml-modules/janestreet/old.nix {
+    janeStreet_0_9_0 = import ../development/ocaml-modules/janestreet/0.9.nix {
       self = self.janeStreet_0_9_0;
       super = self // {
         janePackage = callPackage ../development/ocaml-modules/janestreet/janePackage.nix {
@@ -1242,7 +1249,7 @@ let
 
     hol_light = callPackage ../applications/science/logic/hol_light { };
 
-  })).overrideScope' liftJaneStreet;
+  })).overrideScope' liftJaneStreet);
 
 in let inherit (pkgs) callPackage; in rec
 {
