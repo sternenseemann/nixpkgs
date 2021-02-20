@@ -1,10 +1,42 @@
 { self
+, lib
+, ocaml
 , openssl
 }:
 
+let
+
+  # some core sublibs which we inject for OCaml < 4.04
+  legacyOverrides =
+    lib.optionalAttrs (lib.versionOlder ocaml.version "4.04") {
+      typerep =
+        if lib.versionOlder "4.02" self.ocaml.version
+        then self.callPackage ./typerep.nix {}
+        else self.typerep_p4;
+
+      fieldslib =
+        if lib.versionOlder "4.02" self.ocaml.version
+        then self.callPackage ./fieldslib.nix {}
+        else self.fieldslib_p4;
+
+      sexplib = self.callPackage ./sexplib.nix {};
+
+      variantslib =
+        if lib.versionOlder "4.02" self.ocaml.version
+        then self.callPackage ./variantslib.nix {}
+        else self.variantslib_p4;
+
+      bin_prot =
+        if lib.versionOlder "4.02" self.ocaml.version
+        then self.callPackage ./bin_prot.nix {}
+        else self.bin_prot_p4;
+  };
+
+in
+
 with self;
 
-{
+({
 
   ocaml-compiler-libs = janePackage {
     pname = "ocaml-compiler-libs";
@@ -593,4 +625,4 @@ with self;
     propagatedBuildInputs = [ core_kernel ];
     meta.description = "Topological sort algorithm";
   };
-}
+} // legacyOverrides)

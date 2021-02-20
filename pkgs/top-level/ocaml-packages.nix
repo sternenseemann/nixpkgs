@@ -1214,7 +1214,8 @@ let
       self = self // {
         ppxlib = ppxlib.override { version = "0.8.1"; };
       };
-      inherit (pkgs) openssl;
+      inherit ocaml;
+      inherit (pkgs) openssl lib;
     };
 
     janeStreet_0_9_0 = import ../development/ocaml-modules/janestreet/old.nix {
@@ -1230,52 +1231,6 @@ let
     js_build_tools = callPackage ../development/ocaml-modules/janestreet/js-build-tools.nix {};
 
     buildOcamlJane = callPackage ../development/ocaml-modules/janestreet/buildOcamlJane.nix {};
-
-    # Core sublibs
-    typerep =
-      if lib.versionOlder "4.03" ocaml.version
-      then janeStreet.typerep
-      else if lib.versionOlder "4.02" ocaml.version
-      then callPackage ../development/ocaml-modules/janestreet/typerep.nix {}
-      else typerep_p4;
-
-    fieldslib =
-      if lib.versionOlder "4.03" ocaml.version
-      then janeStreet.fieldslib
-      else if lib.versionOlder "4.02" ocaml.version
-      then callPackage ../development/ocaml-modules/janestreet/fieldslib.nix {}
-      else fieldslib_p4;
-
-    sexplib =
-      if lib.versionOlder "4.03" ocaml.version
-      then janeStreet.sexplib
-      else if lib.versionOlder "4.02" ocaml.version
-      then callPackage ../development/ocaml-modules/janestreet/sexplib.nix {}
-      else null;
-
-    variantslib =
-      if lib.versionOlder "4.03" ocaml.version
-      then janeStreet.variantslib
-      else if lib.versionOlder "4.02" ocaml.version
-      then callPackage ../development/ocaml-modules/janestreet/variantslib.nix {}
-      else variantslib_p4;
-
-    bin_prot =
-      if lib.versionOlder "4.03" ocaml.version
-      then janeStreet.bin_prot
-      else if lib.versionOlder "4.02" ocaml.version
-      then callPackage ../development/ocaml-modules/janestreet/bin_prot.nix {}
-      else bin_prot_p4;
-
-    core_bench =
-      if lib.versionOlder "4.03" ocaml.version
-      then janeStreet.core_bench else
-      callPackage ../development/ocaml-modules/janestreet/core_bench.nix {};
-
-    async_rpc_kernel =
-      if lib.versionOlder "4.03" ocaml.version
-      then janeStreet.async_rpc_kernel
-      else callPackage ../development/ocaml-modules/janestreet/async-rpc-kernel.nix {};
 
     # Apps / from all-packages
 
