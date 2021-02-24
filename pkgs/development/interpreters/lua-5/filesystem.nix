@@ -1,4 +1,4 @@
-{ stdenv, fetchurl, lua5 }:
+{ lib, stdenv, fetchurl, lua5 }:
 
 stdenv.mkDerivation {
   version = "1.6.2";
