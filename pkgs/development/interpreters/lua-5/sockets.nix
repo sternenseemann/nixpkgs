@@ -1,4 +1,4 @@
-{ stdenv, fetchurl, lua5 }:
+{ lib, stdenv, fetchurl, lua5 }:
 
 stdenv.mkDerivation rec {
   pname = "lua-sockets";

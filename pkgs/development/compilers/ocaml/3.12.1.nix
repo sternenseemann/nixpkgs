@@ -1,4 +1,4 @@
-{ stdenv, fetchurl, ncurses, xlibsWrapper }:
+{ lib, stdenv, fetchurl, ncurses, xlibsWrapper }:
 
 let
    useX11 = !stdenv.isAarch32 && !stdenv.isMips;

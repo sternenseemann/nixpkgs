@@ -1,4 +1,4 @@
-{ stdenv, fetchurl, pkg-config, freetype, libXft, pango, fontconfig }:
+{ lib, stdenv, fetchurl, pkg-config, freetype, libXft, pango, fontconfig }:
 
 stdenv.mkDerivation rec {
   version = "2.3.1";

@@ -1,4 +1,4 @@
-{ stdenv, fetchurl, xlibsWrapper, ncurses }:
+{ lib, stdenv, fetchurl, xlibsWrapper, ncurses }:
 
 stdenv.mkDerivation (rec {
 

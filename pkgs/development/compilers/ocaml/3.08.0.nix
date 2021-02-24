@@ -1,4 +1,4 @@
-{ stdenv, fetchurl, xlibsWrapper }:
+{ lib, stdenv, fetchurl, xlibsWrapper }:
 
 stdenv.mkDerivation rec {
   pname = "ocaml";

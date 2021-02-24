@@ -1,4 +1,4 @@
-{ stdenv, fetchurl, ncurses, xlibsWrapper }:
+{ lib, stdenv, fetchurl, ncurses, xlibsWrapper }:
 
 let
    useX11 = stdenv.isi686 || stdenv.isx86_64;
