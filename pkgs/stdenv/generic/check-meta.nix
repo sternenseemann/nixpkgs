@@ -199,6 +199,17 @@ let
         else throw;
     in handler msg;
 
+  # check that a license set has at least the attrs:
+  # * shortName
+  # * fullName
+  licenseSet = with lib.types; submodule {
+    freeformType = attrs;
+    shortName = str;
+    fullName = str;
+  };
+
+  licenseType = with lib.types;
+    either (listOf licenseSet) (either licenseSet str);
 
   metaTypes = with lib.types; rec {
     # These keys are documented
@@ -208,7 +219,7 @@ let
     homepage = either (listOf str) str;
     downloadPage = str;
     changelog = either (listOf str) str;
-    license = either (listOf lib.types.attrs) (either lib.types.attrs str);
+    license = licenseType;
     maintainers = listOf (attrsOf str);
     priority = int;
     platforms = listOf str;
