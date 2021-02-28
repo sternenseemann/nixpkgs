@@ -21,7 +21,7 @@ let
   modSourceName = mod.src.name or "mod";
 
 # Based on: https://build.opensuse.org/package/show/home:fusion809/openra-ura
-in stdenv.mkDerivation (recursiveUpdate packageAttrs rec {
+in stdenv.mkDerivation (packageAttrs // rec {
   name = "${pname}-${version}";
   pname = "openra-${mod.name}";
   inherit (mod) version;
@@ -99,7 +99,7 @@ in stdenv.mkDerivation (recursiveUpdate packageAttrs rec {
     runHook postInstall
   '';
 
-  meta = {
+  meta = packageAttrs.meta // {
     inherit (mod) description homepage;
   };
 })

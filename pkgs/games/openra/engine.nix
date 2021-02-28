@@ -16,7 +16,7 @@
 
 with lib;
 
-stdenv.mkDerivation (recursiveUpdate packageAttrs rec {
+stdenv.mkDerivation (packageAttrs // rec {
   name = "${pname}-${version}";
   pname = "openra";
   version = "${engine.name}-${engine.version}";
@@ -54,7 +54,7 @@ stdenv.mkDerivation (recursiveUpdate packageAttrs rec {
     '') engine.mods)}
   '';
 
-  meta = {
+  meta = packageAttrs.meta // {
     inherit (engine) description homepage;
   };
 })
