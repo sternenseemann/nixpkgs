@@ -1,32 +1,63 @@
-{ lib, stdenv, fetchFromGitLab, meson, ninja, cmake
-, wrapGAppsHook, pkg-config, desktop-file-utils
-, appstream-glib, pythonPackages, glib, gobject-introspection
-, gtk3, webkitgtk, glib-networking, gnome3, gspell, texlive
-, shared-mime-info, haskellPackages}:
+{ lib
+, stdenv
+, fetchFromGitLab
+, meson
+, ninja
+, wrapGAppsHook
+, pkg-config
+, desktop-file-utils
+, appstream-glib
+, pythonPackages
+, glib
+, gobject-introspection
+, gtk3
+, webkitgtk
+, glib-networking
+, gnome3
+, gspell
+, texlive
+, shared-mime-info
+, haskellPackages
+}:
 
 let
-  pythonEnv = pythonPackages.python.withPackages(p: with p;
+  pythonEnv = pythonPackages.python.withPackages (p: with p;
     [ regex setuptools python-Levenshtein pyenchant pygobject3 pycairo pypandoc ]);
   texliveDist = texlive.combined.scheme-medium;
 
-in stdenv.mkDerivation rec {
+in
+stdenv.mkDerivation rec {
   pname = "apostrophe";
   version = "2.2.0.3";
 
   src = fetchFromGitLab {
-    owner  = "somas";
-    repo   = pname;
+    owner = "somas";
+    repo = pname;
     domain = "gitlab.gnome.org";
-    rev    = "v${version}";
+    rev = "v${version}";
     sha256 = "06bl1hc69ixk2vcb2ig74mwid14sl5zq6rfna7lx9na6j3l04879";
   };
 
-  nativeBuildInputs = [ meson ninja cmake pkg-config desktop-file-utils
-    appstream-glib wrapGAppsHook ];
+  nativeBuildInputs = [
+    meson
+    ninja
+    pkg-config
+    desktop-file-utils
+    appstream-glib
+    wrapGAppsHook
+  ];
 
-  buildInputs = [ glib pythonEnv gobject-introspection gtk3
-    gnome3.adwaita-icon-theme webkitgtk gspell texliveDist
-    glib-networking ];
+  buildInputs = [
+    glib
+    pythonEnv
+    gobject-introspection
+    gtk3
+    gnome3.adwaita-icon-theme
+    webkitgtk
+    gspell
+    texliveDist
+    glib-networking
+  ];
 
   postPatch = ''
     patchShebangs --build build-aux/meson_post_install.py
@@ -49,7 +80,7 @@ in stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "https://gitlab.gnome.org/somas/apostrophe";
     description = "A distraction free Markdown editor for GNU/Linux";
-    license = licenses.gpl3;
+    license = licenses.gpl3Only;
     platforms = platforms.linux;
     maintainers = [ maintainers.sternenseemann ];
   };
