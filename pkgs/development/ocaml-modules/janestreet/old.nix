@@ -436,7 +436,11 @@ rec {
     pname = "async_ssl";
     hash = "01w3bg38q61lc3hfh8jsr0sy1ylyv0m6g6h9yvsk8ngj6qk70nss";
     propagatedBuildInputs = [ async ctypes openssl ];
-    meta.description = "Async wrappers for SSL";
+    meta = {
+      description = "Async wrappers for SSL";
+      # ctypes / bigarray-compat only buildable with dune 2
+      broken = true;
+    };
   };
 
   # Jane Street packages, up to expect_test_helpers
