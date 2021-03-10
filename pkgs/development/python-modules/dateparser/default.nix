@@ -1,19 +1,18 @@
-{ lib, fetchPypi, buildPythonPackage
-, nose
-, parameterized
-, mock
-, flake8
-, glibcLocales
-, six
-, jdatetime
-, dateutil
-, umalqurra
-, pytz
-, tzlocal
-, regex
-, ruamel_yaml
-, python
+{ lib
+, buildPythonPackage
 , isPy27
+, fetchFromGitHub
+, flake8
+, parameterized
+, pytestCheckHook
+, GitPython
+, ruamel_yaml
+, dateutil
+, pytz
+, regex
+, tzlocal
+, hijri-converter
+, convertdate
 }:
 
 buildPythonPackage rec {
@@ -22,42 +21,35 @@ buildPythonPackage rec {
 
   disabled = isPy27;
 
-  src = fetchPypi {
-    inherit pname version;
-    sha256 = "159cc4e01a593706a15cd4e269a0b3345edf3aef8bf9278a57dac8adf5bf1e4a";
+  src = fetchFromGitHub {
+    owner = "scrapinghub";
+    repo = "dateparser";
+    rev = "v${version}";
+    sha256 = "0i6ci14lqfsqrmaif57dyilrjbxzmbl98hps1b565gkiy1xqmjhl";
   };
 
   checkInputs = [
-    flake8
-    nose
-    mock
     parameterized
-    six
-    glibcLocales
+    pytestCheckHook
+    GitPython
+    ruamel_yaml
   ];
-  preCheck =''
-    # skip because of missing convertdate module, which is an extra requirement
-    rm tests/test_jalali.py
-  '';
 
-  checkPhase = ''
-    ${python.interpreter} -m unittest discover -s tests
-  '';
-
-  # Strange
-  # AttributeError: 'module' object has no attribute 'config'
-  doCheck = false;
+  pytestFlagsArray = [ "tests" ];
 
   propagatedBuildInputs = [
     # install_requires
     dateutil pytz regex tzlocal
     # extra_requires
-    jdatetime ruamel_yaml umalqurra
+    hijri-converter convertdate
   ];
+
+  pythonImportsCheck = [ "dateparser" ];
 
   meta = with lib; {
     description = "Date parsing library designed to parse dates from HTML pages";
     homepage = "https://github.com/scrapinghub/dateparser";
     license = licenses.bsd3;
+    maintainers = with maintainers; [ dotlambda ];
   };
 }
