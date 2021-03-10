@@ -13,12 +13,14 @@
 , regex
 , ruamel_yaml
 , python
-, isPy3k
+, isPy27
 }:
 
 buildPythonPackage rec {
   pname = "dateparser";
   version = "1.0.0";
+
+  disabled = isPy27;
 
   src = fetchPypi {
     inherit pname version;
