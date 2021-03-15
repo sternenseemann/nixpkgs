@@ -21,7 +21,7 @@ with pkgs;
     , pythonOnTargetForTarget
     , self # is pythonOnHostForTarget
     }: let
-      pythonPackagesFan = callPackage
+      pythonPackages = callPackage
         ({ pkgs, stdenv, python, overrides }: let
           pythonPackagesFun = import ../../../top-level/python-packages.nix {
             inherit stdenv pkgs lib;
@@ -69,17 +69,17 @@ with pkgs;
               recursivePthLoader
             ;
           };
+          aliases = self: super: lib.optionalAttrs (config.allowAliases or true)
+            (import ../../../top-level/python-aliases.nix lib super);
         in lib.makeScopeWithSplicing
           pkgs.splicePackages
           pkgs.newScope
           otherSplices
           keep
-          (lib.extends overrides pythonPackagesFun))
+          (lib.extends (lib.composeExtensions aliases overrides) pythonPackagesFun))
         {
           overrides = packageOverrides;
         };
-        aliases = lib.optionalAttrs (config.allowAliases or true) (import ../../../top-level/python-aliases.nix lib pythonPackagesFan);
-        pythonPackages = pythonPackagesFan // aliases;
     in rec {
         isPy27 = pythonVersion == "2.7";
         isPy35 = pythonVersion == "3.5";
