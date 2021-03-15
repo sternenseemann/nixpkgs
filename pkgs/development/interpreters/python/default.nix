@@ -21,7 +21,7 @@ with pkgs;
     , pythonOnTargetForTarget
     , self # is pythonOnHostForTarget
     }: let
-      pythonPackages = callPackage
+      pythonPackagesFan = callPackage
         ({ pkgs, stdenv, python, overrides }: let
           pythonPackagesFun = import ../../../top-level/python-packages.nix {
             inherit stdenv pkgs lib;
@@ -78,6 +78,8 @@ with pkgs;
         {
           overrides = packageOverrides;
         };
+        aliases = lib.optionalAttrs (config.allowAliases or true) (import ../../../top-level/python-aliases.nix lib pythonPackagesFan);
+        pythonPackages = pythonPackagesFan // aliases;
     in rec {
         isPy27 = pythonVersion == "2.7";
         isPy35 = pythonVersion == "3.5";
