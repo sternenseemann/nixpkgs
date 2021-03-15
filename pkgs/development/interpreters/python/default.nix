@@ -69,12 +69,13 @@ with pkgs;
               recursivePthLoader
             ;
           };
+          aliases = self: super: lib.optionalAttrs (config.allowAliases or true) (import ../../../top-level/python-aliases.nix lib);
         in lib.makeScopeWithSplicing
           pkgs.splicePackages
           pkgs.newScope
           otherSplices
           keep
-          (lib.extends overrides pythonPackagesFun))
+          (lib.extends (lib.composeExtensions aliases overrides) pythonPackagesFun))
         {
           overrides = packageOverrides;
         };
