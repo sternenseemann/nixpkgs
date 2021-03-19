@@ -83,8 +83,8 @@ let
 
     hxcs = buildHaxeLib {
       libname = "hxcs";
-      version = "3.4.0";
-      sha256 = "0f5vgp2kqnpsbbkn2wdxmjf7xkl0qhk9lgl9kb8d5wdy89nac6q6";
+      version = "4.2.0";
+      sha256 = "0sszajl00ll11h2ljvadmsj6cqrjrvylbncd49ma5g6y6fl4c6wf";
       meta.description = "Support library for the C# backend of the Haxe compiler";
       propagatedBuildInputs = [ mono ];
     };
