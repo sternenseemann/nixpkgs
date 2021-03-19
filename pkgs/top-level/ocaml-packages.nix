@@ -993,6 +993,8 @@ let
 
     ocaml_extlib = callPackage ../development/ocaml-modules/extlib { };
 
+    ocaml_extlib_1_7_8 = callPackage ../development/ocaml-modules/extlib/1.7.8.nix { };
+
     ocb-stubblr = callPackage ../development/ocaml-modules/ocb-stubblr { };
 
     ocurl = callPackage ../development/ocaml-modules/ocurl { };
