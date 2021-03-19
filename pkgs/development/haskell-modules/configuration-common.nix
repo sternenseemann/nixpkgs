@@ -1664,4 +1664,13 @@ self: super: {
   # test suite doesn't compile anymore due to changed hunit/tasty APIs
   fullstop = dontCheck super.fullstop;
 
+  # Too strict version bound in conditional branch
+  # can be removed when a new release with PR 35 hits or equivalent
+  # https://github.com/hedgehogqa/haskell-hedgehog-classes/pull/35
+  hedgehog-classes = appendPatch super.hedgehog-classes
+    (pkgs.fetchpatch {
+      url = "https://github.com/jkachmar/haskell-hedgehog-classes/commit/f3b12a202d4651188d5c54167e66ffc6737c8db7.patch";
+      sha256 = "0b3j0dxd2812kq7hq4w3r212a95sf7gh36i3wz84nmzls4yxwh5c";
+    });
+
 } // import ./configuration-tensorflow.nix {inherit pkgs haskellLib;} self super

@@ -6349,7 +6349,6 @@ broken-packages:
   - heckle
   - hedgehog-checkers
   - hedgehog-checkers-lens
-  - hedgehog-classes
   - hedgehog-fakedata
   - hedgehog-gen-json
   - hedgehog-generic
@@ -11260,7 +11259,6 @@ broken-packages:
   - vect-floating-accelerate
   - vect-opengl
   - vector-bytestring
-  - vector-circular
   - vector-clock
   - vector-conduit
   - vector-endian
