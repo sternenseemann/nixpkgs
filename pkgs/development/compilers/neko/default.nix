@@ -33,7 +33,16 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "A high-level dynamically typed programming language";
     homepage = "https://nekovm.org";
-    license = licenses.lgpl21;
+    license = with licenses;[
+      # list based on https://github.com/HaxeFoundation/neko/blob/v2-3-0/LICENSE
+      gpl2Plus    # nekoc, nekoml
+      lgpl21Plus  # mysql.ndll
+      bsd3        # regexp.ndll
+      zlib        # zlib.ndll
+      asl20       # mod_neko, mod_tora, mbedTLS
+      mit         # overall, other libs
+      "https://github.com/HaxeFoundation/neko/blob/v2-3-0/LICENSE#L24-L40" # boehm gc
+    ];
     maintainers = [ maintainers.marcweber maintainers.locallycompact ];
     platforms = platforms.linux ++ platforms.darwin;
   };
