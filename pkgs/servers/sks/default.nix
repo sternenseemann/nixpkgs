@@ -24,6 +24,10 @@ stdenv.mkDerivation rec {
     sed -i \
       -e "s:^LIBDB=.*$:LIBDB=-ldb:g" \
       Makefile.local
+
+    make cryptokit-1.7/README.txt
+    substituteInPlace cryptokit-1.7/src/stubs-md5.c \
+      --replace "uint32 " "uint32_t "
   '';
 
   preBuild = "make dep";

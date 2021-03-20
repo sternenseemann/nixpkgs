@@ -8065,7 +8065,9 @@ in
 
   skippy-xd = callPackage ../tools/X11/skippy-xd {};
 
-  sks = callPackage ../servers/sks { inherit (ocaml-ng.ocamlPackages_4_02) ocaml camlp4; };
+  sks = callPackage ../servers/sks {
+    inherit (ocaml-ng.ocamlPackages_4_04) ocaml camlp4;
+  };
 
   skydns = callPackage ../servers/skydns { };
 
