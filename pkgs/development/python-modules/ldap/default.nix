@@ -1,5 +1,5 @@
 { buildPythonPackage, fetchPypi
-, pyasn1, pyasn1-modules, pytest
+, pyasn1, pyasn1-modules, isPy27, pytest
 , openldap, cyrus_sasl, lib, stdenv }:
 
 buildPythonPackage rec {
@@ -13,9 +13,8 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ pyasn1 pyasn1-modules ];
 
+  checkInputs = lib.optional isPy27 pytest;
   buildInputs = [ openldap cyrus_sasl ];
-
-  checkInputs = [ pytest ];
 
   checkPhase = ''
     # Needed by tests to setup a mockup ldap server.
@@ -23,9 +22,11 @@ buildPythonPackage rec {
     export SBIN="${openldap}/bin"
     export SLAPD="${openldap}/libexec/slapd"
     export SCHEMA="${openldap}/etc/schema"
-
+  '' + (if isPy27 then ''
     py.test
-  '';
+  '' else ''
+    python -bb -Werror -m unittest discover -v -s Tests -p 't_*'
+  '');
 
   doCheck = !stdenv.isDarwin;
 
