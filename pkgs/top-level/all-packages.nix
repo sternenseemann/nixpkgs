@@ -20559,6 +20559,9 @@ in
 
   linux-pam = callPackage ../os-specific/linux/pam { };
 
+  mirageosPackages = lib.recurseIntoAttrs
+    (callPackage ./mirageos-packages.nix { });
+
   nss_ldap = callPackage ../os-specific/linux/nss_ldap { };
 
   odp-dpdk = callPackage ../os-specific/linux/odp-dpdk { };
