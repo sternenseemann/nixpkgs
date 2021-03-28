@@ -1,4 +1,4 @@
-{ stdenv, buildPackages, cmake, makeWrapper, mkDerivation, fetchFromGitHub
+{ stdenv, buildPackages, cmake, gnumake, makeWrapper, mkDerivation, fetchFromGitHub
 , alex, array, base, bytestring, cond, containers, directory, extra
 , filepath, haskeline, hpack, hspec, hspec-core, json, lib, mtl
 , parsec, process, regex-compat, text, time }:
@@ -18,7 +18,12 @@ let
     src = "${src}/kklib";
     nativeBuildInputs = [ cmake ];
   };
-  runtimeDeps = [ cmake ];
+  runtimeDeps = [
+    buildPackages.stdenv.cc
+    buildPackages.stdenv.cc.bintools.bintools
+    gnumake
+    cmake
+  ];
 in
 mkDerivation rec {
   pname = "koka";
