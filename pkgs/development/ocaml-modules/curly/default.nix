@@ -16,8 +16,12 @@ buildDunePackage rec {
 
   propagatedBuildInputs = [ result ];
   checkInputs = [ alcotest cohttp-lwt-unix ];
-  # test dependencies are only available for >= 4.08
-  doCheck = lib.versionAtLeast ocaml.version "4.08"
+  # Disable tests for now: conduit-lwt-unix now validates certificates
+  # using the OS's CA root, but that is not available in the nix sandbox.
+  # https://github.com/mirage/ca-certs/issues/16
+  doCheck = false &&
+    # test dependencies are only available for >= 4.08
+    lib.versionAtLeast ocaml.version "4.08"
     # Some test fails in macOS sandbox
     # > Fatal error: exception Unix.Unix_error(Unix.EPERM, "bind", "")
     && !stdenv.isDarwin;
