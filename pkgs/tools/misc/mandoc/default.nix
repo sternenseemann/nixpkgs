@@ -11,7 +11,17 @@ stdenv.mkDerivation rec {
 
   buildInputs = [ zlib ];
 
+  # HOMEBREWDIR specificies a directory symlinks in
+  # MANPATH may point to when indexing using makewhatis(8).
+  # By setting it to /nix/store we can index the man pages
+  # in /run/current-system instead of them being skipped
+  # because they are symlinks pointing outside of the
+  # indexed directory.
+  # More context can be found in
+  # * configure.local.example in the source tarball
+  # * https://inbox.vuxu.org/mandoc-tech/c9932669-e9d4-1454-8708-7c8e36967e8e@systemli.org/T/
   configureLocal = ''
+    HOMEBREWDIR=/nix/store
     HAVE_WCHAR=1
     MANPATH_DEFAULT="/run/current-system/sw/share/man"
     OSNAME="NixOS"
@@ -36,6 +46,8 @@ stdenv.mkDerivation rec {
     downloadPage = "http://mandoc.bsd.lv/snapshots/";
     license = licenses.bsd3;
     platforms = platforms.all;
-    maintainers = with maintainers; [ bb010g ramkromberg ];
+    maintainers = with maintainers; [
+      bb010g ramkromberg sternenseemann
+    ];
   };
 }
