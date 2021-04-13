@@ -1,15 +1,11 @@
-{ appleDerivation', lib, stdenv, stdenvNoCC, buildPackages
-, bootstrap_cmds, bison, flex
-, gnum4, unifdef, perl, python3, xnu-10_12
-, headersOnly ? true
-}:
+{ appleDerivation, lib, bootstrap_cmds, bison, flex
+, gnum4, unifdef, perl, python3
+, headersOnly ? true }:
 
-appleDerivation' (if headersOnly then stdenvNoCC else stdenv) ({
-  depsBuildBuild = [ buildPackages.stdenv.cc ];
-
+appleDerivation ({
   nativeBuildInputs = [ bootstrap_cmds bison flex gnum4 unifdef perl python3 ];
 
-  patches = [ ./python3.patch ];
+  patches = [ ../python3.patch ];
 
   postPatch = ''
     substituteInPlace Makefile \
@@ -48,16 +44,16 @@ appleDerivation' (if headersOnly then stdenvNoCC else stdenv) ({
 
   PLATFORM = "MacOSX";
   SDKVERSION = "10.11";
-  CC = "${stdenv.cc.targetPrefix or ""}cc";
-  CXX = "${stdenv.cc.targetPrefix or ""}c++";
+  CC = "cc";
+  CXX = "c++";
   MIG = "mig";
   MIGCOM = "migcom";
-  STRIP = "${stdenv.cc.bintools.targetPrefix or ""}strip";
-  NM = "${stdenv.cc.bintools.targetPrefix or ""}nm";
+  STRIP = "strip";
+  NM = "nm";
   UNIFDEF = "unifdef";
   DSYMUTIL = "dsymutil";
   HOST_OS_VERSION = "10.10";
-  HOST_CC = "${buildPackages.stdenv.cc.targetPrefix or ""}cc";
+  HOST_CC = "cc";
   HOST_FLEX = "flex";
   HOST_BISON = "bison";
   HOST_GM4 = "m4";
@@ -130,12 +126,6 @@ appleDerivation' (if headersOnly then stdenvNoCC else stdenv) ({
     # so let's not make it visible from here...
     mkdir $out/Library/PrivateFrameworks
     mv $out/Library/Frameworks/IOKit.framework $out/Library/PrivateFrameworks
-
-    # Include headers Apple removed in 10.13 from 10.12 xnu
-    cp ${xnu-10_12}/include/bsd/machine/spl.h $out/include/bsd/machine/spl.h
-    cp ${xnu-10_12}/include/security/mac.h $out/include/security/mac.h
-    cp ${xnu-10_12}/include/security/mac_policy.h \
-       $out/include/security/mac_policy.h
   '';
 
   appleHeaders = builtins.readFile ./headers.txt;
