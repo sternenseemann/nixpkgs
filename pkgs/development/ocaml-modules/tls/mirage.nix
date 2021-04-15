@@ -1,6 +1,6 @@
 { buildDunePackage, tls
 , x509, lwt, fmt, mirage-flow, mirage-kv, mirage-clock, ptime
-, mirage-crypto, mirage-crypto-pk, hacl_x25519, fiat-p256
+, mirage-crypto, mirage-crypto-pk
 }:
 
 buildDunePackage {
@@ -19,8 +19,6 @@ buildDunePackage {
     ptime
     mirage-crypto
     mirage-crypto-pk
-    hacl_x25519
-    fiat-p256
   ];
 
   meta = tls.meta // {
