@@ -2,20 +2,20 @@
 , ppx_sexp_conv, ppx_cstruct
 , mirage-crypto, mirage-crypto-rng, mirage-crypto-pk
 , x509, cstruct, cstruct-unix, cstruct-sexp, sexplib
-, rresult, mtime, logs, fmt, cmdliner, base64, hacl_x25519
+, rresult, mtime, logs, fmt, cmdliner, base64, mirage-crypto-ec
 , zarith
 }:
 
 buildDunePackage rec {
   pname = "awa";
-  version = "0.0.1";
+  version = "0.0.2";
 
-  minimumOCamlVersion = "4.07";
+  minimumOCamlVersion = "4.08";
   useDune2 = true;
 
   src = fetchurl {
     url = "https://github.com/mirage/awa-ssh/releases/download/v${version}/awa-v${version}.tbz";
-    sha256 = "c1d604645517b191184a5800f5c48a6a9a3e5a2fce4a0e2ecfeee74586301400";
+    sha256 = "288c6599312882b00724049d103ac4f395149ddcc5ea2ca644698b4616ef4468";
   };
 
   nativeBuildInputs = [ ppx_sexp_conv ppx_cstruct ];
@@ -23,7 +23,7 @@ buildDunePackage rec {
   propagatedBuildInputs = [
     mirage-crypto mirage-crypto-rng mirage-crypto-pk x509
     cstruct cstruct-sexp sexplib rresult mtime
-    logs base64 hacl_x25519 zarith
+    logs base64 mirage-crypto-ec zarith
   ];
 
   doCheck = true;
