@@ -1,7 +1,9 @@
 { stdenv, pkgsHostTarget, cmake, makeWrapper, mkDerivation, fetchFromGitHub
 , alex, array, base, bytestring, cond, containers, directory, extra
 , filepath, haskeline, hpack, hspec, hspec-core, json, lib, mtl
-, parsec, process, regex-compat, text, time }:
+, parsec, process, regex-compat, text, time
+, runCommandNoCC, writeText, koka
+}:
 
 let
   version = "2.1.1";
@@ -25,7 +27,16 @@ let
     pkgsHostTarget.gnumake
     pkgsHostTarget.cmake
   ];
+
+  helloString = "Hello, World!";
+
+  kokaHelloWorld = writeText "hello.kk" ''
+    fun main() {
+      println("${helloString}");
+    }
+  '';
 in
+
 mkDerivation rec {
   pname = "koka";
   inherit version src;
@@ -52,4 +63,11 @@ mkDerivation rec {
   homepage = "https://github.com/koka-lang/koka";
   license = lib.licenses.asl20;
   maintainers = with lib.maintainers; [ siraben sternenseemann ];
+
+  passthru.tests = {
+    kokaHelloWorldNative = runCommandNoCC "koka-hello-world-test" {} ''
+      ${koka}/bin/koka ${kokaHelloWorld} | grep "${helloString}"
+      touch $out
+    '';
+  };
 }
