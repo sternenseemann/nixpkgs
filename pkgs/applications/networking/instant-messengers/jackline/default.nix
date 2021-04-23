@@ -1,4 +1,4 @@
-{ lib, fetchFromGitHub, ocamlPackages }:
+{ lib, fetchFromGitHub, fetchpatch, ocamlPackages }:
 
 with ocamlPackages;
 
@@ -16,6 +16,13 @@ buildDunePackage rec {
     rev    = "dd5f19636c9b99b72c348f0f639452d87b7c017c";
     sha256 = "076smdgig4nwvqsqxa6gsl0c3daq5agwgzp4n2y8xxm3qiq91y89";
   };
+
+  patches = [
+    (fetchpatch {
+      url = "https://github.com/sternenseemann/jackline/commit/a4d3333e9ab0121fa7db6b4f4166d31d84970d00.patch";
+      sha256 = "01xsh2c0d6m5barmp55w8l5a1m85jfr24hi42p11qz85mxxqsjqb";
+    })
+  ];
 
   nativeBuildInpts = [
     ppx_sexp_conv
