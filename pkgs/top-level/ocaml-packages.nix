@@ -16,6 +16,8 @@ let
 
     buildDunePackage = callPackage ../build-support/ocaml/dune.nix {};
 
+    ocamlPkgConfigHook = callPackage ../build-support/ocaml/ocaml-pkg-config-hook.nix { };
+
     afl-persistent = callPackage ../development/ocaml-modules/afl-persistent { };
 
     alcotest = callPackage ../development/ocaml-modules/alcotest {};
