@@ -106,6 +106,8 @@ let
       extraPackages = [
         targetLlvmLibraries.libcxxabi
         targetLlvmLibraries.compiler-rt
+      ] ++ lib.optionals (!stdenv.targetPlatform.isWasm) [
+        targetLlvmLibraries.libunwind
       ];
       extraBuildCommands = ''
         echo "-rtlib=compiler-rt -Wno-unused-command-line-argument" >> $out/nix-support/cc-cflags
@@ -189,11 +191,10 @@ let
         libunwind = libraries.libunwind;
       }));
 
-    libunwind = callPackage ./libunwind ({
-      inherit (buildLlvmTools) llvm;
-    } // lib.optionalAttrs (stdenv.hostPlatform.useLLVM or false) {
-      stdenv = overrideCC stdenv buildLlvmTools.lldClangNoLibcxx;
-    });
+    libunwind = callPackage ./libunwind
+      (lib.optionalAttrs (stdenv.hostPlatform.useLLVM or false) {
+        stdenv = overrideCC stdenv buildLlvmTools.lldClangNoLibcxx;
+      });
 
     openmp = callPackage ./openmp.nix {};
   });
