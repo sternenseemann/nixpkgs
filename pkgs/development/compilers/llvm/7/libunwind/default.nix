@@ -1,4 +1,4 @@
-{ lib, stdenv, version, fetch, fetchpatch, cmake, llvm, libcxx
+{ lib, stdenv, version, fetch, fetchpatch, cmake, llvm
 , enableShared ? !stdenv.hostPlatform.isStatic
 }:
 
@@ -26,10 +26,14 @@ stdenv.mkDerivation {
 
   nativeBuildInputs = [ cmake llvm.dev ];
 
+  postUnpack = ''
+    unpackFile ${llvm.src}
+    cmakeFlagsArray=($cmakeFlagsArray -DLLVM_PATH=$PWD/$(ls -d llvm-*))
+  '';
+
   cmakeFlags = lib.optionals (!enableShared) [
     "-DLIBUNWIND_ENABLE_SHARED=OFF"
   ] ++ lib.optionals (stdenv.hostPlatform.useLLVM or false) [
-    "-DLIBUNWIND_HAS_NOSTDINCXX_FLAG=ON"
     "-DLLVM_ENABLE_LIBCXX=ON"
   ];
 }
