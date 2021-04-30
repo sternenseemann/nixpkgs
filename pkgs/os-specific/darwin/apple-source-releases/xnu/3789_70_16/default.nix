@@ -114,7 +114,7 @@ appleDerivation ({
     mv $out/internal_hdr/include/mach/*.h $out/include/mach
 
     # Get rid of some junk lying around
-    rm -rf $out/internal_hdr $out/usr $out/local
+    rm -r $out/internal_hdr $out/usr $out/local
 
     # Add some symlinks
     ln -s $out/Library/Frameworks/System.framework/Versions/B \
