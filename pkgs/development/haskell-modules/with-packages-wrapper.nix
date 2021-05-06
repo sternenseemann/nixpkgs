@@ -1,4 +1,4 @@
-{ lib, stdenv, ghc, llvmPackages, packages, symlinkJoin, makeWrapper
+{ lib, stdenv, ghc, llvmPackages, packages, symlinkJoin, makeWrapper, darwin
 , withLLVM ? !(stdenv.hostPlatform.isx86_64 || stdenv.hostPlatform.isPowerPC)
 , postBuild ? ""
 , ghcLibdir ? null # only used by ghcjs, when resolving plugins
@@ -44,12 +44,17 @@ let
   packageCfgDir = "${libDir}/package.conf.d";
   paths         = lib.filter (x: x ? isHaskellLibrary) (lib.closePropagation packages);
   hasLibraries  = lib.any (x: x.isHaskellLibrary) paths;
-  # CLang is needed on Darwin for -fllvm to work:
-  # https://downloads.haskell.org/~ghc/latest/docs/html/users_guide/codegens.html#llvm-code-generator-fllvm
-  llvm          = lib.makeBinPath
-                  ([ llvmPackages.llvm ]
-                   ++ lib.optional stdenv.targetPlatform.isDarwin llvmPackages.clang);
+  runtimeDeps   = lib.optionals withLLVM ([
+                    llvmPackages.llvm
+                  ] ++ lib.optionals stdenv.targetPlatform.isDarwin [
+                    # CLang is needed on Darwin for -fllvm to work:
+                    # https://downloads.haskell.org/~ghc/latest/docs/html/users_guide/codegens.html#llvm-code-generator-fllvm
+                    llvmPackages.clang
+                  ]) ++ lib.optionals stdenv.targetPlatform.isDarwin [
+                    darwin.cctools
+                  ];
 in
+
 if paths == [] && !withLLVM then ghc else
 symlinkJoin {
   # this makes computing paths from the name attribute impossible;
@@ -70,10 +75,10 @@ symlinkJoin {
           --set "NIX_${ghcCommandCaps}PKG"     "$out/bin/${ghcCommand}-pkg" \
           --set "NIX_${ghcCommandCaps}_DOCDIR" "${docDir}"                  \
           --set "NIX_${ghcCommandCaps}_LIBDIR" "${libDir}"                  \
+          --prefix "PATH" ":" "${lib.makeBinPath runtimeDeps}"              \
           ${lib.optionalString (ghc.isGhcjs or false)
             ''--set NODE_PATH "${ghc.socket-io}/lib/node_modules"''
-          } \
-          ${lib.optionalString withLLVM ''--prefix "PATH" ":" "${llvm}"''}
+          }
       fi
     done
 
