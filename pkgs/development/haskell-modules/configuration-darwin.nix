@@ -168,4 +168,8 @@ self: super: {
     '' + (drv.postPatch or "");
   });
 
+  # systemd library is not needed (nor available) on darwin
+  # https://github.com/andrewthad/posix-api/issues/12#issuecomment-835737829
+  posix-api = super.posix-api.override { systemd = null; };
+
 }

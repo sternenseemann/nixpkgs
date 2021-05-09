@@ -276,7 +276,6 @@ unsupported-platforms:
   piyo:                                         [ x86_64-darwin ]
   PortMidi-simple:                              [ x86_64-darwin ]
   PortMidi:                                     [ x86_64-darwin ]
-  posix-api:                                    [ x86_64-darwin ]
   Raincat:                                      [ x86_64-darwin ]
   reactivity:                                   [ i686-linux, x86_64-linux, x86_64-darwin, aarch64-linux, armv7l-linux ]
   reflex-dom:                                   [ x86_64-darwin ]
