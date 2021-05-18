@@ -1,4 +1,6 @@
-{ lib, stdenv, llvm_meta, version, fetch, cmake, python3, llvm, libcxxabi }:
+{ lib, stdenv, llvm_meta, version, fetch, cmake, python3, llvm, libcxxabi
+, darwin
+}:
 
 let
 
@@ -15,7 +17,8 @@ stdenv.mkDerivation {
   inherit version;
   src = fetch "compiler-rt" "0x1j8ngf1zj63wlnns9vlibafq48qcm72p4jpaxkmkb4qw0grwfy";
 
-  nativeBuildInputs = [ cmake python3 llvm.dev ];
+  nativeBuildInputs = [ cmake python3 llvm.dev ]
+    ++ lib.optional stdenv.hostPlatform.isDarwin darwin.Libsystem;
 
   NIX_CFLAGS_COMPILE = [
     "-DSCUDO_DEFAULT_OPTIONS=DeleteSizeMismatch=0:DeallocationTypeMismatch=0"
