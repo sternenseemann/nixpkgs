@@ -145,8 +145,10 @@ rec {
      set of meta.platforms values. */
   packagePlatforms = mapAttrs (name: value:
       if isDerivation value then
-        value.meta.hydraPlatforms
-          or (value.meta.platforms or [ "x86_64-linux" ])
+        lib.subtractLists
+          (value.meta.badPlatforms or [])
+          (value.meta.hydraPlatforms
+            or (value.meta.platforms or [ "x86_64-linux" ]))
       else if value.recurseForDerivations or false || value.recurseForRelease or false then
         packagePlatforms value
       else
