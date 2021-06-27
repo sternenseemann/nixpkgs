@@ -1,28 +1,32 @@
-{ lib, buildDunePackage, fetchurl
-, mtime, terminal_size, alcotest, astring, fmt
+{ lib, buildDunePackage, terminal
+, fmt, logs, uucp, uutf, vector, optint, mtime
+, alcotest, astring
 }:
 
 buildDunePackage rec {
   pname = "progress";
-  version = "0.1.1";
 
-  minimumOCamlVersion = "4.08";
-  useDune2 = true;
+  inherit (terminal)
+    useDune2
+    minimumOCamlVersion
+    src
+    version
+    ;
 
-  src = fetchurl {
-    url = "https://github.com/CraigFe/progress/releases/download/${version}/progress-${version}.tbz";
-    sha256 = "90c6bec19d014a4c6b0b67006f08bdfcf36981d2176769bebe0ccd75d6785a32";
-  };
+  propagatedBuildInputs = [
+    terminal
+    fmt
+    logs
+    uucp
+    uutf
+    vector
+    optint
+    mtime
+  ];
 
-  propagatedBuildInputs = [ mtime terminal_size ];
+  # requires alcotest >= 1.4.0
+  doCheck = lib.versionAtLeast alcotest.version "1.4.0";
+  checkInputs = [ alcotest astring ];
 
-  doCheck = true;
-  checkInputs = [ alcotest astring fmt ];
-
-  meta = with lib; {
     description = "Progress bar library for OCaml";
-    homepage = "https://github.com/CraigFe/progress";
-    license = licenses.mit;
-    maintainers = [ maintainers.sternenseemann ];
-  };
 }
