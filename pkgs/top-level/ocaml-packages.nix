@@ -1197,6 +1197,8 @@ let
 
     tcslib = callPackage ../development/ocaml-modules/tcslib { };
 
+    terminal = callPackage ../development/ocaml-modules/terminal { };
+
     terminal_size = callPackage ../development/ocaml-modules/terminal_size { };
 
     toml = callPackage ../development/ocaml-modules/toml { };
