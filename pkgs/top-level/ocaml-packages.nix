@@ -1238,6 +1238,8 @@ let
 
     vchan = callPackage ../development/ocaml-modules/vchan { };
 
+    vector = callPackage ../development/ocaml-modules/vector { };
+
     vg = callPackage ../development/ocaml-modules/vg { };
 
     visitors = callPackage ../development/ocaml-modules/visitors { };
