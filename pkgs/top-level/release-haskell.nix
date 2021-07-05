@@ -96,6 +96,16 @@ let
         writers = testPlatforms.writers;
       };
 
+      # TODO: Currently gets me
+      #           error: Musl libc only supports Linux systems.
+      #       in
+      #           hydra-eval-jobs -I . pkgs/top-level/release-haskell.nix
+      #       because it generates things like:
+      #           pkgsMusl.haskell.compiler.integer-simple.ghc8104.x86_64-darwin
+      #       Not sure how to turn that off.
+      # `pkgsMusl` based compilers
+      pkgsMusl.haskell.compiler = packagePlatforms pkgs.pkgsMusl.haskell.compiler;
+
       # test some statically linked packages to catch regressions
       # and get some cache going for static compilation with GHC
       pkgsStatic.haskellPackages = {
@@ -306,6 +316,21 @@ let
           jobs.pkgsStatic.haskellPackages.lens.aarch64-linux
           jobs.pkgsStatic.haskellPackages.random.x86_64-linux
           jobs.pkgsStatic.haskellPackages.random.aarch64-linux
+        ];
+      };
+      muslGHCs = pkgs.releaseTools.aggregate {
+        name = "haskell-pkgsMusl-ghcs";
+        meta = {
+          description = "GHCs built with musl";
+          maintainers = with lib.maintainers; [
+            nh2
+          ];
+        };
+        constituents = [
+          jobs.pkgsMusl.haskell.compiler.ghc8102Binary.x86_64-linux
+          jobs.pkgsMusl.haskell.compiler.ghc884.x86_64-linux
+          jobs.pkgsMusl.haskell.compiler.ghc8104.x86_64-linux
+          jobs.pkgsMusl.haskell.compiler.ghc901.x86_64-linux
         ];
       };
     }
