@@ -10,13 +10,13 @@
 let runtimeInputs = [ opam findlib git mercurial bzip2 gnutar coreutils ];
 in buildDunePackage rec {
   pname = "dune-release";
-  version = "1.4.0";
+  version = "1.5.0";
 
   minimumOCamlVersion = "4.06";
 
   src = fetchurl {
     url = "https://github.com/ocamllabs/${pname}/releases/download/${version}/${pname}-${version}.tbz";
-    sha256 = "1frinv1rsrm30q6jclicsswpshkdwwdgxx7sp6q9w4c2p211n1ln";
+    sha256 = "1lyfaczskdbqnhmpiy6wga9437frds3m8prfk2rhwyb96h69y3pv";
   };
 
   nativeBuildInputs = [ makeWrapper ];
@@ -32,16 +32,8 @@ in buildDunePackage rec {
     # to have a fixed path to the binary in nix store
     sed -i '/must_exist (Cmd\.v "curl"/d' lib/github.ml
 
-    # fix problems with git invocations in tests
-    for f in tests/bin/{delegate_info,errors,tag,no_doc,x-commit-hash}/run.t; do
-      # set bogus user info in git so git commit doesn't fail
-      sed -i '/git init/ a \    $ git config user.name test; git config user.email "pseudo@pseudo.invalid"' "$f"
-      # surpress hint to set default branch name
-      substituteInPlace "$f" --replace "git init" "git init -b main"
-    done
-
     # ignore weird yes error message
-    sed -i 's/yes |/yes 2>\/dev\/null |/' tests/bin/no_doc/run.t
+    # sed -i 's/yes |/yes 2>\/dev\/null |/' tests/bin/no_doc/run.t
   '';
 
   # tool specific env vars have been deprecated, use PATH
