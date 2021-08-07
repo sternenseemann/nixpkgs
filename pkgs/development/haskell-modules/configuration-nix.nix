@@ -919,4 +919,14 @@ self: super: builtins.intersectAttrs super {
   # Flag added in Agda 2.6.2
   Agda = appendConfigureFlag super.Agda "-foptimise-heavily";
 
+  # Use nix packaged libBF
+  libBF = overrideCabal super.libBF (drv: {
+    librarySystemDepends = [
+      pkgs.libbf
+    ] ++ (drv.librarySystemDepends or []);
+    configureFlags = [
+      "-fsystem-libbf"
+    ] ++ (drv.configureFlags or []);
+  });
+
 }
