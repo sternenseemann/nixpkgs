@@ -328,8 +328,9 @@ stdenv.mkDerivation {
     ## GNU specific extra strip flags
     ##
 
-    # TODO(@sternenseemann): make a generic strip wrapper?
-    + optionalString (bintools.isGNU or false) ''
+    # TODO(@sternenseemann): make a generic strip wrapper which incoorporates
+    # the aarch64-darwin strip wrapper?
+    + optionalString ((bintools.isGNU or false) && !(targetPlatform.isDarwin && targetPlatform.isAarch64)) ''
       wrap ${targetPrefix}strip ${./gnu-binutils-strip-wrapper.sh} \
         "${bintools_bin}/bin/${targetPrefix}strip"
     ''
@@ -375,6 +376,9 @@ stdenv.mkDerivation {
       echo 'source ${postLinkSignHook}' >> $out/nix-support/post-link-hook
 
       export signingUtils=${signingUtils}
+      export extraBefore=${
+        lib.optionalString (bintools.isGNU or false) "\"--enable-deterministic-archives\""
+      }
 
       wrap \
         ${targetPrefix}install_name_tool \

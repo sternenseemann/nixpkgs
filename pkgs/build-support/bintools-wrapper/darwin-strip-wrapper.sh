@@ -11,7 +11,7 @@ fi
 source @signingUtils@
 
 extraAfter=()
-extraBefore=()
+extraBefore=(@extraBefore@)
 params=("$@")
 
 output=
