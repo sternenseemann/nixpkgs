@@ -759,39 +759,8 @@ self: super: builtins.intersectAttrs super {
       '' + (drv.postInstall or "");
     });
 
-  # set more accurate set of platforms instead of maintaining
-  # an ever growing list of platforms to exclude via unsupported-platforms
-  cpuid = overrideCabal super.cpuid {
-    platforms = pkgs.lib.platforms.x86;
-  };
-
   # Pass the correct libarchive into the package.
   streamly-archive = super.streamly-archive.override { archive = pkgs.libarchive; };
-
-  # passes the -msse2 flag which only works on x86 platforms
-  hsignal = overrideCabal super.hsignal {
-    platforms = pkgs.lib.platforms.x86;
-  };
-
-  # uses x86 intrinsics
-  blake3 = overrideCabal super.blake3 {
-    platforms = pkgs.lib.platforms.x86;
-  };
-
-  # uses x86 intrinsics, see also https://github.com/NixOS/nixpkgs/issues/122014
-  crc32c = overrideCabal super.crc32c {
-    platforms = pkgs.lib.platforms.x86;
-  };
-
-  # uses x86 intrinsics
-  seqalign = overrideCabal super.seqalign {
-    platforms = pkgs.lib.platforms.x86;
-  };
-
-  # uses x86 intrinsics
-  geomancy = overrideCabal super.geomancy {
-    platforms = pkgs.lib.platforms.x86;
-  };
 
   hls-brittany-plugin = overrideCabal super.hls-brittany-plugin (drv: {
     testToolDepends = [ pkgs.git ];
@@ -877,16 +846,6 @@ self: super: builtins.intersectAttrs super {
       pkgs.zlib
     ] ++ (drv.librarySystemDepends or []);
   });
-
-  # uses x86 assembler
-  inline-asm = overrideCabal super.inline-asm {
-    platforms = pkgs.lib.platforms.x86;
-  };
-
-  # uses x86 assembler in C bits
-  hw-prim-bits = overrideCabal super.hw-prim-bits {
-    platforms = pkgs.lib.platforms.x86;
-  };
 
   # random 1.2.0 has tests that indirectly depend on
   # itself causing an infinite recursion at evaluation
