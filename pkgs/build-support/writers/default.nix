@@ -128,7 +128,7 @@ rec {
   #   '';
   writeHaskell = name: {
     libraries ? [],
-    ghc ? pkgs.ghc,
+    ghc ? buildPackages.ghc,
     ghcArgs ? [],
     strip ? true
   }:
@@ -146,14 +146,14 @@ rec {
     writeHaskell "/bin/${name}";
 
   writeRust = name: {
-      rustc ? pkgs.rustc,
+      rustc ? buildPackages.rustc,
       rustcArgs ? [],
       strip ? true
   }:
     makeBinWriter {
       compileScript = ''
         cp "$contentPath" tmp.rs
-        PATH=${makeBinPath [pkgs.gcc]} ${lib.getBin rustc}/bin/rustc ${lib.escapeShellArgs rustcArgs} -o "$out" tmp.rs
+        PATH=${makeBinPath [buildPackages.gcc]} ${lib.getBin rustc}/bin/rustc ${lib.escapeShellArgs rustcArgs} -o "$out" tmp.rs
       '';
       inherit strip;
     } name;
