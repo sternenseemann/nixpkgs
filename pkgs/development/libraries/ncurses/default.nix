@@ -13,18 +13,12 @@
 }:
 
 stdenv.mkDerivation rec {
-  # Note the revision needs to be adjusted.
-  version = "6.2";
+  version = "6.3";
   name = "ncurses-${version}" + lib.optionalString (abiVersion == "5") "-abi5-compat";
 
-  # We cannot use fetchFromGitHub (which calls fetchzip)
-  # because we need to be able to use fetchurlBoot.
-  src = let
-    # Note the version needs to be adjusted.
-    rev = "v${version}";
-  in fetchurl {
-    url = "https://github.com/mirror/ncurses/archive/${rev}.tar.gz";
-    sha256 = "15r2456g0mlq2q7gh2z52vl6zv6y0z8sdchrs80kg4idqd8sm8fd";
+  src = fetchurl {
+    url = "https://invisible-mirror.net/archives/ncurses/ncurses-${version}.tar.gz";
+    sha256 = "0ng0hhbc4ppw60xa944hgqhvq6n248qjqkgg67g4qp885fn53z4p";
   };
 
   outputs = [ "out" "dev" "man" ];
