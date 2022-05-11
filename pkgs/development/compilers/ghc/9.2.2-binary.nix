@@ -129,6 +129,7 @@ let
           url = "${downloadsUrl}/${version}/ghc-${version}-x86_64-alpine3.12-linux-gmp.tar.xz";
           sha256 = "624523826e24eae33c03490267cddecc1d80c047f2a3f4b03580f1040112d5c0";
         };
+        isHadrian = true;
         isStatic = true;
         # We can't check the RPATH for statically linked executable
         exePathForLibraryCheck = null;
@@ -283,6 +284,8 @@ stdenv.mkDerivation rec {
     "--with-gmp-includes=${lib.getDev gmp}/include"
     # Note `--with-gmp-libraries` does nothing for GHC bindists:
     # https://gitlab.haskell.org/ghc/ghc/-/merge_requests/6124
+  ] ++ lib.optional (binDistUsed.isHadrian or false) [
+    "--with-gmp-libraries=${lib.getLib gmp}/lib"
   ] ++ lib.optional stdenv.isDarwin "--with-gcc=${./gcc-clang-wrapper.sh}"
     # From: https://github.com/NixOS/nixpkgs/pull/43369/commits
     ++ lib.optional stdenv.hostPlatform.isMusl "--disable-ld-override";
@@ -380,7 +383,8 @@ stdenv.mkDerivation rec {
   # * https://gitlab.haskell.org/ghc/ghc/-/issues/19580
   hardeningDisable = lib.optional stdenv.targetPlatform.isMusl "pie";
 
-  doInstallCheck = true;
+  # XXX: Disable hadrian install check for now since it's broken
+  doInstallCheck = !(binDistUsed.isHadrian or false);
   installCheckPhase = ''
     # Sanity check, can ghc create executables?
     cd $TMP
