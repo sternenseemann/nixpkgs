@@ -16,12 +16,14 @@ let
     "native-bignum"
     "ghc902"
     "ghc923"
+    "ghc941"
     "ghcHEAD"
   ];
 
   nativeBignumIncludes = [
     "ghc902"
     "ghc923"
+    "ghc941"
     "ghcHEAD"
   ];
 
@@ -150,6 +152,24 @@ in {
       # https://github.com/xattr/xattr/issues/44 and
       # https://github.com/xattr/xattr/issues/55 are solved.
       inherit (buildPackages.darwin) xattr autoSignDarwinBinariesHook;
+      buildTargetLlvmPackages = pkgsBuildTarget.llvmPackages_12;
+      llvmPackages = pkgs.llvmPackages_12;
+    };
+    ghc941 = callPackage ../development/compilers/ghc/9.4.1.nix {
+      bootPkgs =
+        # aarch64 ghc8107Binary exceeds max output size on hydra
+        if stdenv.isAarch64 || stdenv.isAarch32 then
+          packages.ghc922BinaryMinimal
+        else if stdenv.hostPlatform.isPower64 && stdenv.hostPlatform.isLittleEndian then
+          packages.ghc923 # no bindists supported for bootstrapping available
+        else
+          packages.ghc922Binary;
+      inherit (buildPackages.python3Packages) sphinx;
+      # Need to use apple's patched xattr until
+      # https://github.com/xattr/xattr/issues/44 and
+      # https://github.com/xattr/xattr/issues/55 are solved.
+      inherit (buildPackages.darwin) xattr autoSignDarwinBinariesHook;
+      # Support range >= 10 && < 14
       buildTargetLlvmPackages = pkgsBuildTarget.llvmPackages_12;
       llvmPackages = pkgs.llvmPackages_12;
     };
