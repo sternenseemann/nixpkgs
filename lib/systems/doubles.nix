@@ -22,7 +22,7 @@ let
     "x86_64-solaris"
 
     # JS
-    "js-ghcjs"
+    "javascript-ghcjs"
 
     # Linux
     "aarch64-linux" "armv5tel-linux" "armv6l-linux" "armv7a-linux"
@@ -86,7 +86,7 @@ in {
   m68k          = filterDoubles predicates.isM68k;
   s390          = filterDoubles predicates.isS390;
   s390x         = filterDoubles predicates.isS390x;
-  js            = filterDoubles predicates.isJavaScript;
+  javascript    = filterDoubles predicates.isJavaScript;
 
   bigEndian     = filterDoubles predicates.isBigEndian;
   littleEndian  = filterDoubles predicates.isLittleEndian;

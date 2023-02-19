@@ -329,6 +329,6 @@ rec {
 
   # Ghcjs
   ghcjs = {
-    config = "js-unknown-ghcjs";
+    config = "javascript-unknown-ghcjs";
   };
 }
