@@ -78,8 +78,7 @@ in {
           packages.ghc865Binary
         else
           packages.ghc8107Binary;
-      inherit (buildPackages.python311Packages) sphinx; # a distutils issue with 3.12
-      python3 = buildPackages.python311; # so that we don't have two of them
+      inherit (buildPackages.python3Packages) sphinx;
       # Need to use apple's patched xattr until
       # https://github.com/xattr/xattr/issues/44 and
       # https://github.com/xattr/xattr/issues/55 are solved.
@@ -95,8 +94,7 @@ in {
           packages.ghc810
         else
           packages.ghc8107Binary;
-      inherit (buildPackages.python311Packages) sphinx; # a distutils issue with 3.12
-      python3 = buildPackages.python311; # so that we don't have two of them
+      inherit (buildPackages.python3Packages) sphinx;
       inherit (buildPackages.darwin) autoSignDarwinBinariesHook xattr;
       buildTargetLlvmPackages = pkgsBuildTarget.llvmPackages_12;
       llvmPackages = pkgs.llvmPackages_12;
@@ -108,8 +106,7 @@ in {
           packages.ghc810
         else
           packages.ghc8107Binary;
-      inherit (buildPackages.python311Packages) sphinx; # a distutils issue with 3.12
-      python3 = buildPackages.python311; # so that we don't have two of them
+      inherit (buildPackages.python3Packages) sphinx;
       # Need to use apple's patched xattr until
       # https://github.com/xattr/xattr/issues/44 and
       # https://github.com/xattr/xattr/issues/55 are solved.
@@ -123,8 +120,7 @@ in {
           packages.ghc810
         else
           packages.ghc8107Binary;
-      inherit (buildPackages.python311Packages) sphinx; # a distutils issue with 3.12
-      python3 = buildPackages.python311; # so that we don't have two of them
+      inherit (buildPackages.python3Packages) sphinx;
       # Need to use apple's patched xattr until
       # https://github.com/xattr/xattr/issues/44 and
       # https://github.com/xattr/xattr/issues/55 are solved.
@@ -138,8 +134,7 @@ in {
           packages.ghc810
         else
           packages.ghc8107Binary;
-      inherit (buildPackages.python311Packages) sphinx; # a distutils issue with 3.12
-      python3 = buildPackages.python311; # so that we don't have two of them
+      inherit (buildPackages.python3Packages) sphinx;
       # Need to use apple's patched xattr until
       # https://github.com/xattr/xattr/issues/44 and
       # https://github.com/xattr/xattr/issues/55 are solved.
@@ -153,8 +148,7 @@ in {
           packages.ghc810
         else
           packages.ghc8107Binary;
-      inherit (buildPackages.python311Packages) sphinx; # a distutils issue with 3.12
-      python3 = buildPackages.python311; # so that we don't have two of them
+      inherit (buildPackages.python3Packages) sphinx;
       # Need to use apple's patched xattr until
       # https://github.com/xattr/xattr/issues/44 and
       # https://github.com/xattr/xattr/issues/55 are solved.
@@ -178,8 +172,7 @@ in {
           packages.ghc902
         else
           packages.ghc8107Binary;
-      inherit (buildPackages.python311Packages) sphinx; # a distutils issue with 3.12
-      python3 = buildPackages.python311; # so that we don't have two of them
+      inherit (buildPackages.python3Packages) sphinx;
       # Need to use apple's patched xattr until
       # https://github.com/xattr/xattr/issues/44 and
       # https://github.com/xattr/xattr/issues/55 are solved.
@@ -203,8 +196,7 @@ in {
           packages.ghc902
         else
           packages.ghc8107Binary;
-      inherit (buildPackages.python311Packages) sphinx; # a distutils issue with 3.12
-      python3 = buildPackages.python311; # so that we don't have two of them
+      inherit (buildPackages.python3Packages) sphinx;
       # Need to use apple's patched xattr until
       # https://github.com/xattr/xattr/issues/44 and
       # https://github.com/xattr/xattr/issues/55 are solved.
