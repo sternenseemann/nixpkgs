@@ -486,7 +486,7 @@ stdenv.mkDerivation (
     + lib.optionalString (lib.versionOlder version "9.2" || lib.versionAtLeast version "9.4") ''
       sed -i -e 's|-isysroot /Developer/SDKs/MacOSX10.5.sdk||' configure
     ''
-    + lib.optionalString (stdenv.hostPlatform.isLinux && hostPlatform.libc == "glibc") ''
+    + lib.optionalString (stdenv.hostPlatform.libc == "glibc") ''
       export LOCALE_ARCHIVE="${glibcLocales}/lib/locale/locale-archive"
     ''
     + lib.optionalString (!stdenv.hostPlatform.isDarwin) ''
