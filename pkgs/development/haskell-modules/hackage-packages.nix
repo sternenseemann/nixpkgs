@@ -341276,6 +341276,141 @@ self: {
     }
   ) { };
 
+  hpack_0_38_1 = callPackage (
+    {
+      mkDerivation,
+      aeson,
+      base,
+      bifunctors,
+      bytestring,
+      Cabal,
+      containers,
+      crypton,
+      deepseq,
+      directory,
+      filepath,
+      Glob,
+      hspec,
+      hspec-discover,
+      http-client,
+      http-client-tls,
+      http-types,
+      HUnit,
+      infer-license,
+      interpolate,
+      mockery,
+      mtl,
+      pretty,
+      QuickCheck,
+      scientific,
+      template-haskell,
+      temporary,
+      text,
+      transformers,
+      unordered-containers,
+      vcr,
+      vector,
+      yaml,
+    }:
+    mkDerivation {
+      pname = "hpack";
+      version = "0.38.1";
+      sha256 = "03qygb51jb4r6sg2bkaz7k80h11wgjr27hgpx6h08xm8axdk2gba";
+      revision = "1";
+      editedCabalFile = "0dyd6pp2pk62nynp0x2j9kjddfv43p9inplk4iya7hdldyjs77k0";
+      isLibrary = true;
+      isExecutable = true;
+      libraryHaskellDepends = [
+        aeson
+        base
+        bifunctors
+        bytestring
+        Cabal
+        containers
+        crypton
+        deepseq
+        directory
+        filepath
+        Glob
+        http-client
+        http-client-tls
+        http-types
+        infer-license
+        mtl
+        pretty
+        scientific
+        text
+        transformers
+        unordered-containers
+        vector
+        yaml
+      ];
+      executableHaskellDepends = [
+        aeson
+        base
+        bifunctors
+        bytestring
+        Cabal
+        containers
+        crypton
+        deepseq
+        directory
+        filepath
+        Glob
+        http-client
+        http-client-tls
+        http-types
+        infer-license
+        mtl
+        pretty
+        scientific
+        text
+        transformers
+        unordered-containers
+        vector
+        yaml
+      ];
+      testHaskellDepends = [
+        aeson
+        base
+        bifunctors
+        bytestring
+        Cabal
+        containers
+        crypton
+        deepseq
+        directory
+        filepath
+        Glob
+        hspec
+        http-client
+        http-client-tls
+        http-types
+        HUnit
+        infer-license
+        interpolate
+        mockery
+        mtl
+        pretty
+        QuickCheck
+        scientific
+        template-haskell
+        temporary
+        text
+        transformers
+        unordered-containers
+        vcr
+        vector
+        yaml
+      ];
+      testToolDepends = [ hspec-discover ];
+      description = "A modern format for Haskell packages";
+      license = lib.licenses.mit;
+      hydraPlatforms = lib.platforms.none;
+      mainProgram = "hpack";
+    }
+  ) { };
+
   hpack = callPackage (
     {
       mkDerivation,
