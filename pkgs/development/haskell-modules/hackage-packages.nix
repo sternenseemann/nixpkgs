@@ -224744,6 +224744,69 @@ self: {
     }
   ) { };
 
+  extensions_0_1_0_1 = callPackage (
+    {
+      mkDerivation,
+      base,
+      bytestring,
+      Cabal,
+      colourista,
+      containers,
+      directory,
+      filepath,
+      ghc-boot-th,
+      hedgehog,
+      hspec,
+      hspec-hedgehog,
+      optparse-applicative,
+      parsec,
+      text,
+    }:
+    mkDerivation {
+      pname = "extensions";
+      version = "0.1.0.1";
+      sha256 = "1rf6jhmms6ll7mn9rh81amzb7nd4zjqcnxdzivw50dxcrcfmdiq2";
+      revision = "1";
+      editedCabalFile = "1ixf5bpxy840zdlg3gsl3whzii03fc5j16i591pakprsvprp04hk";
+      isLibrary = true;
+      isExecutable = true;
+      libraryHaskellDepends = [
+        base
+        bytestring
+        Cabal
+        containers
+        directory
+        filepath
+        ghc-boot-th
+        parsec
+        text
+      ];
+      executableHaskellDepends = [
+        base
+        colourista
+        containers
+        directory
+        filepath
+        optparse-applicative
+        text
+      ];
+      testHaskellDepends = [
+        base
+        bytestring
+        containers
+        ghc-boot-th
+        hedgehog
+        hspec
+        hspec-hedgehog
+        text
+      ];
+      description = "Parse Haskell Language Extensions";
+      license = lib.licenses.mpl20;
+      hydraPlatforms = lib.platforms.none;
+      mainProgram = "extensions";
+    }
+  ) { };
+
   extensions = callPackage (
     {
       mkDerivation,
@@ -240960,6 +241023,114 @@ self: {
       pname = "fourmolu";
       version = "0.14.0.0";
       sha256 = "1mnszw3lak3vmjcgp40xskjmzd526rw5rs06mnix2fahz8nkrrys";
+      isLibrary = true;
+      isExecutable = true;
+      libraryHaskellDepends = [
+        aeson
+        ansi-terminal
+        array
+        base
+        binary
+        bytestring
+        Cabal-syntax
+        containers
+        deepseq
+        Diff
+        directory
+        file-embed
+        filepath
+        ghc-lib-parser
+        megaparsec
+        MemoTrie
+        mtl
+        scientific
+        syb
+        text
+        yaml
+      ];
+      executableHaskellDepends = [
+        base
+        Cabal-syntax
+        containers
+        directory
+        filepath
+        ghc-lib-parser
+        optparse-applicative
+        text
+        th-env
+        yaml
+      ];
+      testHaskellDepends = [
+        base
+        bytestring
+        Cabal-syntax
+        containers
+        Diff
+        directory
+        filepath
+        ghc-lib-parser
+        hspec
+        hspec-megaparsec
+        megaparsec
+        path
+        path-io
+        pretty
+        process
+        QuickCheck
+        temporary
+        text
+        yaml
+      ];
+      testToolDepends = [ hspec-discover ];
+      description = "A formatter for Haskell source code";
+      license = lib.licenses.bsd3;
+      hydraPlatforms = lib.platforms.none;
+      mainProgram = "fourmolu";
+    }
+  ) { };
+
+  fourmolu_0_15_0_0 = callPackage (
+    {
+      mkDerivation,
+      aeson,
+      ansi-terminal,
+      array,
+      base,
+      binary,
+      bytestring,
+      Cabal-syntax,
+      containers,
+      deepseq,
+      Diff,
+      directory,
+      file-embed,
+      filepath,
+      ghc-lib-parser,
+      hspec,
+      hspec-discover,
+      hspec-megaparsec,
+      megaparsec,
+      MemoTrie,
+      mtl,
+      optparse-applicative,
+      path,
+      path-io,
+      pretty,
+      process,
+      QuickCheck,
+      scientific,
+      syb,
+      temporary,
+      text,
+      th-env,
+      yaml,
+    }:
+    mkDerivation {
+      pname = "fourmolu";
+      version = "0.15.0.0";
+      sha256 = "11xy0k5zkhd0dz7ify0m466l90j8sblm9rzzwkc0nn0d8pxyizfq";
+      revision = "1";
+      editedCabalFile = "1a0wnrvygipxivjzjbbvl1vm4pc45p5p239z741xj9jj5kipjh9c";
       isLibrary = true;
       isExecutable = true;
       libraryHaskellDepends = [
@@ -258579,7 +258750,7 @@ self: {
     }
   ) { };
 
-  ghc-lib-parser_9_10_3_20250912 = callPackage (
+  ghc-lib-parser_9_8_5_20250214 = callPackage (
     {
       mkDerivation,
       alex,
@@ -258604,8 +258775,8 @@ self: {
     }:
     mkDerivation {
       pname = "ghc-lib-parser";
-      version = "9.10.3.20250912";
-      sha256 = "1ilh872nvzdvz1k9lnf3q4xwspbdgb9lcygfff1bnszf9jv14z7r";
+      version = "9.8.5.20250214";
+      sha256 = "1l07lkc4d9ryxy26fr7mry4691m0f3p0wi6b6l1jzr968hrs06cb";
       enableSeparateDataOutput = true;
       libraryHaskellDepends = [
         array
@@ -258776,7 +258947,7 @@ self: {
     }
   ) { };
 
-  ghc-lib-parser-ex_9_10_0_0 = callPackage (
+  ghc-lib-parser-ex_9_8_0_2 = callPackage (
     {
       mkDerivation,
       base,
@@ -258792,8 +258963,8 @@ self: {
     }:
     mkDerivation {
       pname = "ghc-lib-parser-ex";
-      version = "9.10.0.0";
-      sha256 = "1v4nq8nvg9bpdnqgpy8pkzb05h7f9f6m2a6bcqj3j2i9jzqv7sb6";
+      version = "9.8.0.2";
+      sha256 = "1s4ibjdzrflb2r88srmdnslj09h78xqwdn6djcnirmnka7qrf09v";
       libraryHaskellDepends = [
         base
         bytestring
@@ -258803,8 +258974,6 @@ self: {
       ];
       testHaskellDepends = [
         base
-        bytestring
-        containers
         directory
         extra
         filepath
@@ -258813,7 +258982,7 @@ self: {
         tasty-hunit
         uniplate
       ];
-      description = "Programming with GHC parse trees";
+      description = "Algorithms on GHC parse trees";
       license = lib.licenses.bsd3;
       hydraPlatforms = lib.platforms.none;
     }
@@ -331972,6 +332141,80 @@ self: {
       pname = "hlint";
       version = "3.6.1";
       sha256 = "1za1cykiajyfl8ks59jdj6228qnlg5s96slc9jm9zcy1ncmi701j";
+      isLibrary = true;
+      isExecutable = true;
+      enableSeparateDataOutput = true;
+      libraryHaskellDepends = [
+        aeson
+        ansi-terminal
+        base
+        bytestring
+        cmdargs
+        containers
+        cpphs
+        data-default
+        deriving-aeson
+        directory
+        extra
+        file-embed
+        filepath
+        filepattern
+        ghc-lib-parser
+        ghc-lib-parser-ex
+        hscolour
+        process
+        refact
+        text
+        transformers
+        uniplate
+        unordered-containers
+        utf8-string
+        vector
+        yaml
+      ];
+      executableHaskellDepends = [ base ];
+      description = "Source code suggestions";
+      license = lib.licenses.bsd3;
+      hydraPlatforms = lib.platforms.none;
+      mainProgram = "hlint";
+      maintainers = [ lib.maintainers.maralorn ];
+    }
+  ) { };
+
+  hlint_3_8 = callPackage (
+    {
+      mkDerivation,
+      aeson,
+      ansi-terminal,
+      base,
+      bytestring,
+      cmdargs,
+      containers,
+      cpphs,
+      data-default,
+      deriving-aeson,
+      directory,
+      extra,
+      file-embed,
+      filepath,
+      filepattern,
+      ghc-lib-parser,
+      ghc-lib-parser-ex,
+      hscolour,
+      process,
+      refact,
+      text,
+      transformers,
+      uniplate,
+      unordered-containers,
+      utf8-string,
+      vector,
+      yaml,
+    }:
+    mkDerivation {
+      pname = "hlint";
+      version = "3.8";
+      sha256 = "0x5xkd8n9idmg334kj1kky6bcl4wl8ks4i87j3r8zwp75fv3dwm8";
       isLibrary = true;
       isExecutable = true;
       enableSeparateDataOutput = true;
@@ -496337,6 +496580,100 @@ self: {
     }
   ) { };
 
+  ormolu_0_7_4_0 = callPackage (
+    {
+      mkDerivation,
+      ansi-terminal,
+      array,
+      base,
+      binary,
+      bytestring,
+      Cabal-syntax,
+      containers,
+      deepseq,
+      Diff,
+      directory,
+      file-embed,
+      filepath,
+      ghc-lib-parser,
+      hspec,
+      hspec-discover,
+      hspec-megaparsec,
+      megaparsec,
+      MemoTrie,
+      mtl,
+      optparse-applicative,
+      path,
+      path-io,
+      QuickCheck,
+      syb,
+      temporary,
+      text,
+      th-env,
+    }:
+    mkDerivation {
+      pname = "ormolu";
+      version = "0.7.4.0";
+      sha256 = "1s7a9crjhbsmjkdvpv8ycygpiikv96s96p3lmjik4pb3q7idir2z";
+      revision = "5";
+      editedCabalFile = "107p02xhq0gfacc6j8kackqn16a0wnayq7qpi26acvzqqyxhcjxy";
+      isLibrary = true;
+      isExecutable = true;
+      libraryHaskellDepends = [
+        ansi-terminal
+        array
+        base
+        binary
+        bytestring
+        Cabal-syntax
+        containers
+        deepseq
+        Diff
+        directory
+        file-embed
+        filepath
+        ghc-lib-parser
+        megaparsec
+        MemoTrie
+        mtl
+        syb
+        text
+      ];
+      executableHaskellDepends = [
+        base
+        Cabal-syntax
+        containers
+        directory
+        filepath
+        ghc-lib-parser
+        optparse-applicative
+        text
+        th-env
+      ];
+      testHaskellDepends = [
+        base
+        Cabal-syntax
+        containers
+        directory
+        filepath
+        ghc-lib-parser
+        hspec
+        hspec-megaparsec
+        megaparsec
+        path
+        path-io
+        QuickCheck
+        temporary
+        text
+      ];
+      testToolDepends = [ hspec-discover ];
+      description = "A formatter for Haskell source code";
+      license = lib.licenses.bsd3;
+      hydraPlatforms = lib.platforms.none;
+      mainProgram = "ormolu";
+    }
+  ) { };
+
   ormolu = callPackage (
     {
       mkDerivation,
@@ -507253,6 +507590,60 @@ self: {
       license = lib.licenses.bsd3;
       hydraPlatforms = lib.platforms.none;
       broken = true;
+    }
+  ) { };
+
+  path_0_9_5 = callPackage (
+    {
+      mkDerivation,
+      aeson,
+      base,
+      bytestring,
+      deepseq,
+      exceptions,
+      filepath,
+      genvalidity,
+      genvalidity-hspec,
+      genvalidity-property,
+      hashable,
+      hspec,
+      mtl,
+      QuickCheck,
+      template-haskell,
+      text,
+      validity,
+    }:
+    mkDerivation {
+      pname = "path";
+      version = "0.9.5";
+      sha256 = "0cy4vilmhzhi5nfh4v2kyvizhjzjpjib3bvgm1sgmvjzj40dfgrd";
+      libraryHaskellDepends = [
+        aeson
+        base
+        deepseq
+        exceptions
+        filepath
+        hashable
+        template-haskell
+        text
+      ];
+      testHaskellDepends = [
+        aeson
+        base
+        bytestring
+        filepath
+        genvalidity
+        genvalidity-hspec
+        genvalidity-property
+        hspec
+        mtl
+        QuickCheck
+        template-haskell
+        validity
+      ];
+      description = "Support for well-typed paths";
+      license = lib.licenses.bsd3;
+      hydraPlatforms = lib.platforms.none;
     }
   ) { };
 
@@ -644194,6 +644585,105 @@ self: {
       sha256 = "07f0cn7xy8yg1rm0yvkjx27xqv9xc3n1c5s4fqq3yrqyi5szdhbw";
       revision = "1";
       editedCabalFile = "0q4k40ys5k2grmbzk14sqnqw9bpq59cq9b7z41cdmbdpdvgbpcsc";
+      isLibrary = true;
+      isExecutable = true;
+      libraryHaskellDepends = [
+        aeson
+        base
+        bytestring
+        Cabal
+        containers
+        directory
+        file-embed
+        filepath
+        ghc-lib-parser
+        ghc-lib-parser-ex
+        HsYAML
+        HsYAML-aeson
+        mtl
+        regex-tdfa
+        syb
+        text
+      ];
+      executableHaskellDepends = [
+        aeson
+        base
+        bytestring
+        Cabal
+        containers
+        directory
+        file-embed
+        filepath
+        ghc-lib-parser
+        ghc-lib-parser-ex
+        HsYAML
+        HsYAML-aeson
+        mtl
+        optparse-applicative
+        regex-tdfa
+        strict
+        syb
+        text
+      ];
+      testHaskellDepends = [
+        aeson
+        base
+        bytestring
+        Cabal
+        containers
+        directory
+        file-embed
+        filepath
+        ghc-lib-parser
+        ghc-lib-parser-ex
+        HsYAML
+        HsYAML-aeson
+        HUnit
+        mtl
+        random
+        regex-tdfa
+        syb
+        test-framework
+        test-framework-hunit
+        text
+      ];
+      description = "Haskell code prettifier";
+      license = lib.licenses.bsd3;
+      hydraPlatforms = lib.platforms.none;
+      mainProgram = "stylish-haskell";
+    }
+  ) { };
+
+  stylish-haskell_0_14_6_0 = callPackage (
+    {
+      mkDerivation,
+      aeson,
+      base,
+      bytestring,
+      Cabal,
+      containers,
+      directory,
+      file-embed,
+      filepath,
+      ghc-lib-parser,
+      ghc-lib-parser-ex,
+      HsYAML,
+      HsYAML-aeson,
+      HUnit,
+      mtl,
+      optparse-applicative,
+      random,
+      regex-tdfa,
+      strict,
+      syb,
+      test-framework,
+      test-framework-hunit,
+      text,
+    }:
+    mkDerivation {
+      pname = "stylish-haskell";
+      version = "0.14.6.0";
+      sha256 = "1v72i3dxn30z832cs19sbnj5p40y873sv4kciaivd0ls7i5mm8vb";
       isLibrary = true;
       isExecutable = true;
       libraryHaskellDepends = [
