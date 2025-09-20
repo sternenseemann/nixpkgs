@@ -81812,9 +81812,7 @@ self: {
       ];
       description = "Automatic Rule-Based Time Tracker";
       license = lib.licenses.gpl2Only;
-      hydraPlatforms = lib.platforms.none;
       maintainers = [ lib.maintainers.rvl ];
-      broken = true;
     }
   ) { };
 
@@ -105792,9 +105790,7 @@ self: {
       ];
       description = "Encode precise binary representations directly in types";
       license = lib.licenses.mit;
-      hydraPlatforms = lib.platforms.none;
       maintainers = [ lib.maintainers.raehik ];
-      broken = true;
     }
   ) { };
 
@@ -105816,8 +105812,6 @@ self: {
       ];
       description = "Orphan instances for binrep";
       license = lib.licenses.mit;
-      hydraPlatforms = lib.platforms.none;
-      broken = true;
     }
   ) { };
 
@@ -111569,7 +111563,6 @@ self: {
       doHaddock = false;
       description = "Classic and block-style bloom filters";
       license = lib.licenses.asl20;
-      hydraPlatforms = lib.platforms.none;
     }
   ) { };
 
@@ -123227,9 +123220,7 @@ self: {
       ];
       description = "A command line program for extracting compiler arguments from a cabal file";
       license = lib.licenses.bsd3;
-      hydraPlatforms = lib.platforms.none;
       mainProgram = "cabal-cargs";
-      broken = true;
     }
   ) { };
 
@@ -180627,9 +180618,7 @@ self: {
       ];
       description = "A fast, safe, and intuitive DataFrame library";
       license = lib.licenses.gpl3Plus;
-      hydraPlatforms = lib.platforms.none;
       mainProgram = "dataframe";
-      broken = true;
     }
   ) { };
 
@@ -453334,10 +453323,8 @@ self: {
       ];
       description = "A library for probabilistic programming";
       license = lib.licenses.mit;
-      hydraPlatforms = lib.platforms.none;
       mainProgram = "example";
       maintainers = [ lib.maintainers.turion ];
-      broken = true;
     }
   ) { };
 
@@ -507085,10 +507072,8 @@ self: {
       ];
       description = "Terminal-based presentations using Pandoc";
       license = lib.licenses.gpl2Only;
-      hydraPlatforms = lib.platforms.none;
       mainProgram = "patat";
       maintainers = [ lib.maintainers.dalpd ];
-      broken = true;
     }
   ) { };
 
@@ -567494,8 +567479,6 @@ self: {
       ];
       description = "Simple linear and quadratic regression";
       license = lib.licenses.bsd3;
-      hydraPlatforms = lib.platforms.none;
-      broken = true;
     }
   ) { };
 
@@ -574447,7 +574430,6 @@ self: {
       ];
       description = "monad-bayes backend for Rhine";
       license = lib.licenses.bsd3;
-      hydraPlatforms = lib.platforms.none;
       mainProgram = "rhine-bayes-gloss";
     }
   ) { };
@@ -658443,7 +658425,6 @@ self: {
       ];
       description = "Determine time complexity of a given function";
       license = lib.licenses.mit;
-      hydraPlatforms = lib.platforms.none;
     }
   ) { };
 
