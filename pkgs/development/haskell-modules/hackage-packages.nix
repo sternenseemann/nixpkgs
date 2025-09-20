@@ -189293,13 +189293,11 @@ self: {
       ];
       description = "Language Server Protocol (LSP) server for Dhall";
       license = lib.licenses.mit;
-      hydraPlatforms = lib.platforms.none;
       mainProgram = "dhall-lsp-server";
       maintainers = [
         lib.maintainers.dalpd
         lib.maintainers.Gabriella439
       ];
-      broken = true;
     }
   ) { };
 
