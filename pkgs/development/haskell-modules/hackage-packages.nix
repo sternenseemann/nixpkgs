@@ -500274,9 +500274,7 @@ self: {
       doHaddock = false;
       description = "Pandoc filter for cross-references";
       license = lib.licenses.gpl2Only;
-      hydraPlatforms = lib.platforms.none;
       mainProgram = "pandoc-crossref";
-      broken = true;
     }
   ) { };
 
