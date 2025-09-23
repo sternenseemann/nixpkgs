@@ -245376,63 +245376,6 @@ self: {
     }
   ) { };
 
-  fsnotify_0_3_0_1 = callPackage (
-    {
-      mkDerivation,
-      async,
-      base,
-      bytestring,
-      containers,
-      directory,
-      filepath,
-      hinotify,
-      random,
-      shelly,
-      tasty,
-      tasty-hunit,
-      temporary,
-      text,
-      time,
-      unix,
-      unix-compat,
-    }:
-    mkDerivation {
-      pname = "fsnotify";
-      version = "0.3.0.1";
-      sha256 = "19bdbz9wb9jvln6yg6qm0hz0w84bypvkxf0wjhgrgd52f9gidlny";
-      revision = "3";
-      editedCabalFile = "0n5p6ljx8i5mmalkw05izjgzbqg08y7rxxn2gk8ghxlqldgqgix9";
-      libraryHaskellDepends = [
-        async
-        base
-        bytestring
-        containers
-        directory
-        filepath
-        hinotify
-        shelly
-        text
-        time
-        unix
-        unix-compat
-      ];
-      testHaskellDepends = [
-        async
-        base
-        directory
-        filepath
-        random
-        tasty
-        tasty-hunit
-        temporary
-        unix-compat
-      ];
-      description = "Cross platform library for file change notification";
-      license = lib.licenses.bsd3;
-      hydraPlatforms = lib.platforms.none;
-    }
-  ) { };
-
   fsnotify = callPackage (
     {
       mkDerivation,
@@ -708048,49 +707991,6 @@ self: {
       ];
       description = "Servant combinators for the versioning library";
       license = lib.licenses.asl20;
-      hydraPlatforms = lib.platforms.none;
-    }
-  ) { };
-
-  versions_5_0_5 = callPackage (
-    {
-      mkDerivation,
-      base,
-      deepseq,
-      hashable,
-      megaparsec,
-      microlens,
-      parser-combinators,
-      QuickCheck,
-      tasty,
-      tasty-hunit,
-      tasty-quickcheck,
-      text,
-    }:
-    mkDerivation {
-      pname = "versions";
-      version = "5.0.5";
-      sha256 = "01kn3ilizzm5n05nz0qry1vjb6bj8dzinyqn3mbshds298acn70c";
-      libraryHaskellDepends = [
-        base
-        deepseq
-        hashable
-        megaparsec
-        parser-combinators
-        text
-      ];
-      testHaskellDepends = [
-        base
-        megaparsec
-        microlens
-        QuickCheck
-        tasty
-        tasty-hunit
-        tasty-quickcheck
-        text
-      ];
-      description = "Types and parsers for software version numbers";
-      license = lib.licenses.bsd3;
       hydraPlatforms = lib.platforms.none;
     }
   ) { };
