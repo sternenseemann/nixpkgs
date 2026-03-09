@@ -67,10 +67,12 @@ let
     groupBy'
     hasAttrByPath
     hasInfix
+    head
     id
     ifilter0
     isStorePath
     join
+    last
     lazyDerivation
     length
     lists
@@ -83,8 +85,10 @@ let
     mapAttrsToListRecursiveCond
     mapCartesianProduct
     matchAttrs
+    max
     mergeAttrs
     meta
+    min
     mod
     nameValuePair
     optionalDrvAttr
@@ -1444,6 +1448,112 @@ runTests {
   # This number of elements would notably cause a stack overflow if it was implemented without the `foldl'` builtin
   testFoldl'Large = {
     expr = foldl' (acc: el: acc + el) 0 (range 0 100000);
+    expected = 5000050000;
+  };
+
+  testScanlBasic = {
+    expr = lists.scanl (acc: x: acc ++ [ x ]) [ ] [ 1 2 3 ];
+    expected = [
+      [ ]
+      [ 1 ]
+      [
+        1
+        2
+      ]
+      [
+        1
+        2
+        3
+      ]
+    ];
+  };
+
+  testScanrBasic = {
+    expr = lists.scanr (x: acc: [ x ] ++ acc) [ ] [ 1 2 3 ];
+    expected = [
+      [
+        1
+        2
+        3
+      ]
+      [
+        2
+        3
+      ]
+      [ 3 ]
+      [ ]
+    ];
+  };
+
+  testScanl1Max = {
+    expr = lists.scanl1 max [
+      1
+      2
+      3
+      4
+      5
+      6
+      7
+      4
+      3
+      2
+      8
+    ];
+    expected = [
+      1
+      2
+      3
+      4
+      5
+      6
+      7
+      7
+      7
+      7
+      8
+    ];
+  };
+
+  testScanr1Min = {
+    expr = lists.scanr1 min [
+      1
+      2
+      3
+      4
+      5
+      6
+      7
+      4
+      3
+      2
+      8
+    ];
+    expected = [
+      1
+      2
+      2
+      2
+      2
+      2
+      2
+      2
+      2
+      2
+      8
+    ];
+  };
+
+  # Make sure we don't get a stack overflow for large lists by using scanl' as a replacment for foldl'.
+  # This number of elements would notably cause a stack overflow with `scanl`.
+  testScanl'Large = {
+    expr = last (lists.scanl' (acc: el: acc + el) 0 (range 0 100000));
+    expected = 5000050000;
+  };
+
+  # Make sure we don't get a stack overflow for large lists by using scanr' as a replacment for foldl'.
+  # This number of elements would notably cause a stack overflow with `scanr`.
+  testScanr'Large = {
+    expr = head (lists.scanr' (acc: el: acc + el) 0 (range 0 100000));
     expected = 5000050000;
   };
 

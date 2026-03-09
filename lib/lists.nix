@@ -283,6 +283,103 @@ rec {
     builtins.seq nul (builtins.foldl' op nul);
 
   /**
+    Reduce a list from the left (like `foldl`), but collect every intermediate accumulator value
+    into a list and return it. The initial accumulator value becomes the first list element, so
+    the resulting list has one element more than the input list.
+
+    # Inputs
+
+    `op`
+
+    : The binary operation to run, where the two arguments are:
+
+    1. `acc`: The current accumulator value: Either the initial one for the first iteration,
+       or the result of the previous iteration
+    2. `x`: The corresponding list element for this iteration
+
+    `nul`
+
+    : The initial accumulator value.
+
+    `list`
+
+    : The list to scan.
+
+    # Type
+
+    ```
+    scanl :: (a -> b -> a) -> a -> [b] -> [a]
+    ```
+
+    # Examples
+    :::{.example}
+    ## `lib.lists.scanl` usage example
+
+    ```nix
+    scanl (acc: x: acc + x) 0 [ 1 2 (-4) 3 ]
+    => [ 0 1 3 -1 2 ]
+    ```
+
+    :::
+  */
+  scanl =
+    op: nul: list:
+    let
+      result = [ nul ] ++ genList (i: op (elemAt result i) (elemAt list i)) (length list);
+    in
+    result;
+
+  /**
+    # Type
+
+    ```
+    scanl' :: (a -> b -> a) -> a -> [b] -> [a]
+    ```
+  */
+  scanl' =
+    op: nul: xs:
+    let
+      result = scanl op nul xs;
+    in
+    # force in direction of scan to prevent too many nested thunks from building up
+    builtins.seq (foldl' builtins.seq nul result) result;
+
+  scanl1 = op: list: if list == [ ] then list else scanl op (head list) (tail list);
+
+  /**
+    # Type
+
+    ```
+    scanr :: (a -> b -> b) -> b -> [a] -> [b]
+    ```
+  */
+  scanr =
+    op: nul: xs:
+    let
+      result = genList (i: op (elemAt xs i) (elemAt result (i + 1))) (length xs) ++ [ nul ];
+    in
+    result;
+
+  /**
+    # Type
+
+    ```
+    scanr :: (a -> b -> b) -> b -> [a] -> [b]
+    ```
+  */
+  scanr' =
+    op: nul: xs:
+    let
+      result = scanr op nul xs;
+    in
+    # force in direction of scan to prevent too many nested thunks from building up
+    # We can't use foldr since it may exceed the max call depth for big inputs.
+    # TODO(@sternenseemann): investigate foldr that doesn't consume call depth
+    builtins.seq (foldl' builtins.seq nul (reverseList result)) result;
+
+  scanr1 = op: list: if list == [ ] then list else scanr op (last list) (init list);
+
+  /**
     Map with index starting from 0
 
     # Inputs
