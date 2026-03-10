@@ -212,7 +212,7 @@ rec {
     A call like
 
     ```nix
-    foldl' op acc₀ [ x₀ x₁ x₂ ... xₙ₋₁ xₙ ]
+    foldl' op nul [ x₀ x₁ x₂ ... xₙ₋₁ xₙ ]
     ```
 
     is (denotationally) equivalent to the following,
@@ -220,7 +220,7 @@ rec {
 
     ```nix
     let
-      acc₁   = builtins.seq acc₀   (op acc₀   x₀  );
+      acc₁   = builtins.seq nul    (op acc₀   x₀  );
       acc₂   = builtins.seq acc₁   (op acc₁   x₁  );
       acc₃   = builtins.seq acc₂   (op acc₂   x₂  );
       ...
@@ -230,7 +230,7 @@ rec {
     accₙ₊₁
 
     # Or ignoring builtins.seq
-    op (op (... (op (op (op acc₀ x₀) x₁) x₂) ...) xₙ₋₁) xₙ
+    op (op (... (op (op (op nul x₀) x₁) x₂) ...) xₙ₋₁) xₙ
     ```
 
     # Inputs
@@ -242,7 +242,7 @@ rec {
     1. `acc`: The current accumulator value: Either the initial one for the first iteration, or the result of the previous iteration
     2. `x`: The corresponding list element for this iteration
 
-    `acc`
+    `nul`
 
     : The initial accumulator value.
 
@@ -251,7 +251,7 @@ rec {
       To avoid evaluation even before the `list` argument is given an eta expansion can be used:
 
       ```nix
-      list: lib.foldl' op acc list
+      list: lib.foldl' op nul list
       ```
 
     `list`
@@ -276,11 +276,11 @@ rec {
     :::
   */
   foldl' =
-    op: acc:
+    op: nul:
     # The builtin `foldl'` is a bit lazier than one might expect.
     # See https://github.com/NixOS/nix/pull/7158.
     # In particular, the initial accumulator value is not forced before the first iteration starts.
-    builtins.seq acc (builtins.foldl' op acc);
+    builtins.seq nul (builtins.foldl' op nul);
 
   /**
     Map with index starting from 0
