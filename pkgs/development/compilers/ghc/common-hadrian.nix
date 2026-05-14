@@ -854,10 +854,13 @@ stdenv.mkDerivation (
     # the bindist configure script uses different env variables than the GHC configure script
     # see https://github.com/NixOS/nixpkgs/issues/267250 krank:ignore-line
     # https://gitlab.haskell.org/ghc/ghc/-/issues/24211  krank:ignore-line
-    + lib.optionalString (stdenv.targetPlatform.linker == "cctools") ''
-      export InstallNameToolCmd=$INSTALL_NAME_TOOL
-      export OtoolCmd=$OTOOL
-    ''
+    # Fixed in 9.6.2, 9.8.2 and >= 9.10. Of our packaged GHCs, only 9.4.8 is affected.
+    +
+      lib.optionalString (lib.versionOlder version "9.6" && stdenv.targetPlatform.linker == "cctools")
+        ''
+          export InstallNameToolCmd=$INSTALL_NAME_TOOL
+          export OtoolCmd=$OTOOL
+        ''
     # Replicate configurePhase
     + ''
       $configureScript "''${configureFlags[@]}"
